@@ -230,3 +230,47 @@ table td {
     color: white;
     float: right;
 }
+
+/* Purchase Order */
+.poList{
+    margin-bottom: 25px;
+    padding: 15px;
+    padding-bottom: 39px;
+    border-bottom: 1px solid #d1d1d1;
+    border-radius: 5px;
+    background: #fbfbfb;
+}
+.poListContainer{
+    width: 100%;
+    height: 65vh;
+    overflow-y: auto;
+}
+.poList p{
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #c5224a;
+    font-size: 15px;
+}
+.poList table td, .poList table th{
+    border: none;
+    border-bottom: 1px dotted #7a7a7a;
+}
+.poList table td{
+    padding: 9px 10px;
+    font-size: 13px;
+}
+.poList table th{
+    padding: 8px 8px;
+}
+.poBtnContainer{
+    margin-top: 10px;
+}
+.updatepoBtn{
+    color: #f685a1;
+    background: #fff;
+    border: 1px solid #f685a1;
+}
+.updatepoBtn:hover{
+    color: #fff;
+    background: #f685a1;
+}
