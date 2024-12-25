@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body#loginBody{
+    background: url('../images/login-bg.jpg') no-repeat center center fixed ;
+    background-size: cover;
+    font-family: arial ;
+}
+.loginHeader{
+    text-align: center;
+    margin-bottom: 60px;
+}
+.loginHeader h1{
+    font-size: 90px;
+    color: #f685a2; 
+    
+}
+.loginHeader p{
+    color: #ffdae3;
+    font-size: 50px; 
+    text-transform: uppercase;
+    display: inline-block;
+}
+.loginHeader p:after{
+    content: '';
+    display: block;
+    height: 5px;
+    background: #f685a2;
+    margin: 0 auto; 
+} 
+.loginBody form{
+    margin: 0 auto;
+    width: 380px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 50px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+}
+.loginInputContainer{
+    margin-top: 30px;
+}
+.loginInputContainer label{
+    display: block;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+.loginInputContainer input{
+    height: 30px;
+    width: 100%;
+    border: 2px solid #d40339;
+    font-size: 20px;
+    padding: 5px;
+    text-align: center; 
+}
+.loginInputContainer input::placeholder {  
+    font-style: italic;  
+} 
+.loginButtonContainer{
+    margin-top: 40px;
+    text-align: center;
+}
+.loginButtonContainer button{
+    font-size: 20px;
+    padding: 10px 40px;
+    background: #f685a2;
+    border: none;
+    color: #fff;
+}
+.loginButtonContainer button:hover{
+     border: 2px solid tomato; 
+}
+#errorMessage{
+    background-color: #fff;
+    text-align: center;
+    color: red;
+    font-size: 20px;
+    padding: 11px;
+}

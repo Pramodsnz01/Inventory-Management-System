@@ -1,0 +1,231 @@
+form::after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.appForm {
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #cecfd0;
+    border-radius: 5px;
+    background-color: #f4f6f9;
+}
+
+form label {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.appFormInput {
+    width: 100%;
+    height: 33px;
+    border: 1px solid #cecfd0;
+    border-radius: 5px;
+}
+
+.appFormInputContainer {
+    margin-bottom: 15px;
+}
+
+.appbtn {
+    background-color: #f685a1;
+    border: 1px solid #f685a1;
+    color: #fff;
+    padding: 10px;
+    float: right;
+}
+
+p.responseMessage {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+    padding: 4px;
+}
+
+p.responseMessage__success {
+    background-color: #cecfd0;
+}
+
+p.responseMessage__error {
+    background-color: #990c02;
+    color: #fff;
+}
+
+/*User add page*/
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column {
+    width: 100%;
+    padding: 0px 10px;
+}
+
+.section_header {
+    font-size: 21px;
+    color: #f685a1;
+    border-bottom: 1px solid #ffd7e1;
+    padding-bottom: 10px;
+    padding: 8px;
+    border-left: 4px solid #f690bf;
+    margin-bottom: 15px;
+}
+
+.users {
+    width: 100%;
+    height: 65vh;
+    overflow-y: auto;
+}
+
+.users,
+table,
+th,
+td {
+    border: 1px solid #cacaca;
+    border-collapse: collapse;
+}
+
+table {
+    width: 100%;
+}
+
+table th {
+    font-size: 12px;
+    text-align: center;
+    background: #f4f6f9;
+    text-transform: uppercase;
+}
+
+table td {
+    font-size: 12px;
+    text-align: center;
+    padding: 5px;
+}
+
+.userCount {
+    padding-top: 5px;
+    text-align: right;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #f685a1;
+}
+
+/* For Product */
+.productTextAreaInput {
+    width: 100%;
+    height: 75px;
+    border-radius: 5px;
+    border-color: #d7d7d7;
+}
+
+.productImages {
+    max-width: 150px;
+    max-height: 150px; 
+    aspect-ratio: 3/2;
+    object-fit: contain; 
+}
+
+/* Scrollbar */
+/* .users::-webkit-scrollbar {
+    width: 20px;
+}
+    
+.users::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.users::-webkit-scrollbar-thumb {
+    background-image: url('https://i.ibb.co/1RHr40z/248599.png');
+    background-repeat: no-repeat, no-repeat;
+    background-size: 20px;
+} */
+
+#suppliersSelect, #products{
+    display: block;
+    width: 100%; 
+    height: 100px;
+    border-color: #d2d2d2;
+}
+
+.orderProductBtn{ 
+    background-color: #d93f65; 
+    color: #fff; 
+}
+.orderBtn{
+    height: 33px;
+    border: none; 
+    padding: 2px 10px;
+    border-radius: 4px; 
+    font-size: 15px;
+}
+.submitOrderProductBtn{
+    background-color: #323232;
+    color: #ffffff;
+    font-weight: bold;
+}
+.marginTop{
+    margin-top: 20px;
+}
+.alignRight{
+    text-align: right;
+}
+#orderProductList{
+    margin-top: 20px;
+}
+#orderProductList .row{
+    margin: 0px !important;
+}
+.productNameSelect{
+    font-size: 15px;
+    border: none;
+    background-color: #fafafa;
+    padding: 3px 17px;
+    border: 1px solid #b0b0b0;
+    border-radius: 2px;
+}
+.orderProductRow{
+    padding: 6px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+.quantityContainer{
+    width: 100%;
+    height: 65vh;
+    overflow-y: auto;
+}
+.orderProductQty{
+    height: 33px;
+    border: none;
+    background: #f8f8f8;
+    text-indent: 10px;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px; 
+}
+.suppliersRow .supplierName{
+    margin-left: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #a1a1a1;
+    text-transform: uppercase;
+}
+.suppliersRow .row{
+    padding: 8px 0px;
+} 
+.appbtn{
+    border: none;
+    padding: 4px 8px;
+    border-radius: 3px;
+
+}
+.removeOrderBtn{
+    background-color: #ff5858;
+    color: white;
+    float: right;
+}

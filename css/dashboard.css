@@ -1,0 +1,221 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0
+}
+
+ul[role="list"],
+ol[role="list"] {
+    list-style: none
+}
+
+html:focus-within {
+    scroll-behavior: smooth
+}
+
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5
+}
+
+a:not([class]) {
+    text-decoration-skip-ink: auto
+}
+
+img,
+picture {
+    max-width: 100%;
+    display: block
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit
+}
+
+@media(prefers-reduced-motion:reduce) {
+    html:focus-within {
+        scroll-behavior: auto
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important
+    }
+}
+
+#dashboardmainContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.dashboard_sidebar {
+    width: 23%;
+    background-color: #323232;
+    height: 100vh;
+}
+
+.dashboard_content_container {
+    width: 80%;
+    background-color: #f4f6f9;
+}
+
+h3.dashboard_logo {
+    color: #f685a1;
+    font-size: 60px;
+    text-align: center;
+}
+
+.dashboardSidebar_user {
+    text-align: center;
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid white;
+}
+
+.dashboardSidebar_user img {
+    width: 80px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #f685a1;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.dashboardSidebar_user span {
+    top: 20%;
+    font-size: 18px;
+    color: white;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.dashboardMenu_lists {
+    margin-top: 20px;
+}
+
+/* .fa {
+    padding: 10px;
+    font-size: 20px;
+} */
+.dashboardMenu_lists li.liMainMenu {
+    margin-left: -45px;
+    list-style: none;
+    padding-top: 15px;
+    text-transform: uppercase;
+}
+
+.dashboardMenu_lists li.liMainMenu a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-size: 15px;
+    padding: 0px 15px;
+    padding-bottom: 15px;
+    padding-right: 0;
+}
+
+.dashboardMenu_lists li.liMainMenu a i {
+    font-size: 18px;
+    width: 30px;
+}
+
+.dashboardMenu_lists li.menuActive {
+    background-color: #f685a1;
+    color: white;
+}
+
+.dashboardMenu_lists li:hover {
+    background-color: #f685a1;
+    color: white;
+    transition: .3s all;
+}
+
+.dashboard_topNav {
+    background-color: #fff;
+    padding: 15px;
+}
+
+.dashboard_topNav a {
+    color: #848383;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+#logout_btn {
+    float: right;
+}
+
+.dashboard_content {
+    padding: 40px 10px 10px 10px;
+}
+
+.dashboardContent_main {
+    background-color: #fff;
+    min-height: 500px;
+    height: 100%;
+    border: 2px solid #cdcdcd;
+    padding-left: 20px;
+}
+
+.subMenus { 
+    display: none;
+    list-style: none;
+    margin-left: -35px !important;
+    background-color: #c26a80;
+}
+a.subMenuLink{
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    text-transform: none;
+    font-size: 14px !important;
+}
+a.subMenuLink i{
+    font-size: 15px !important;
+    width: 23px !important;
+}
+.subMenus li a{ 
+    padding-left: 30px !important;
+}
+i.leftAngleIcon{
+    float: right;
+    font-size: 15px !important;
+    margin-top: 2px;
+}
+.leftAngleIcon {
+    display: inline-block;  
+    transition: transform 0.4s ease;  
+    transform: rotate(0deg);  
+    transform-origin: 20% 50%;  
+}
+
+.leftAngleIcon.rotate-down {
+    transform: rotate(-90deg); 
+}
+
+.subMenuActive{
+    font-weight: bold;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    background-color: #763a49; 
+}
