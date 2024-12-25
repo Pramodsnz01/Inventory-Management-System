@@ -36,19 +36,36 @@ $products = json_encode($products);
                         <div class="column column-12">
                             <h1 class="section_header"><i class="fa fa-plus"></i> Order Product</h1>
                             <div>
-                                <div class="alignRight">
-                                    <button class="orderBtn orderProductBtn" id="orderProductBtn">Add More
-                                        Product</button>
-                                </div>
-                                <div class="quantityContainer">
-                                    <div id="orderProductList"> 
-    
+                                <form action="database/save-order.php" method="POST">
+                                    <div class="alignRight">
+                                        <button type="button" class="orderBtn orderProductBtn" id="orderProductBtn">Add
+                                            More
+                                            Product</button>
                                     </div>
-                                    <div class="alignRight marginTop">
-                                        <button class="orderBtn submitOrderProductBtn ">Submit Order</button>
-                                    </div> 
-                                </div>
+                                    <div class="quantityContainer">
+                                        <div id="orderProductList">
+                                            <p id="noData" style="color: #9f9f9f">No products selected.</p>
+                                        </div>
+                                        <div class="alignRight marginTop">
+                                            <button type="submit" class="orderBtn submitOrderProductBtn ">Submit
+                                                Order</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
+                            <?php
+                            if (isset($_SESSION['response'])) {
+                                $response_message = $_SESSION['response']['message'];
+                                $is_success = $_SESSION['response']['success'];
+                                ?>
+                                <div class="responseMessage">
+                                    <p
+                                        class="responseMessage <?= $is_success ? 'responseMessage__success' : 'responseMessage__error' ?> ">
+                                        <?= $response_message ?>
+                                    </p>
+                                </div>
+                                <?php unset($_SESSION['response']);
+                            } ?>
                         </div>
                     </div>
                 </div>
@@ -63,111 +80,117 @@ $products = json_encode($products);
         function script() {
             var vm = this;
 
-            let productOptions = '\
-                            <div>\
-                                <label for="product_name" >PRODUCT NAME</label>\
-                                  <select name="product_name" id="product_name" class="productNameSelect">\
-                                   <option value="">Select Product</option>\
-                                   INSERTPRODUCTHERE\
-                                  </select>\
-                                  <button class="appbtn removeOrderBtn">Remove</button>\
-                            </div >'; 
-
+            let productOptions = `
+            <div>
+                <label for="product_name">PRODUCT NAME</label>
+                <select name="products[]" id="product_name" class="productNameSelect">
+                    <option value="">Select Product</option>
+                    INSERTPRODUCTHERE
+                </select>
+                <button class="appbtn removeOrderBtn">Remove</button>
+            </div>`;
 
             this.initialize = function () {
                 this.registerEvents();
-                this.randerProductOptions();
-            },
+                this.renderProductOptions();
+            };
 
-                this.randerProductOptions = function () { 
-                    let optionHtml = '';
-                    products.forEach((product) => {
-                        optionHtml += '<option value="' + product.id + '">' + product.product_name + '</option>';
-                    });
+            this.renderProductOptions = function () {
+                let optionHtml = '';
+                products.forEach((product) => {
+                    optionHtml += `<option value="${product.id}">${product.product_name}</option>`;
+                });
 
-                    productOptions = productOptions.replace('INSERTPRODUCTHERE', optionHtml);
-                },
+                productOptions = productOptions.replace('INSERTPRODUCTHERE', optionHtml);
+            };
 
-                this.registerEvents = function () {
+            this.registerEvents = function () {
+                document.addEventListener('click', function (e) {
+                    let targetElement = e.target;
 
-                    document.addEventListener('click', function (e) {
-                        let targetElement = e.target;
-                        let classList = targetElement.classList;
+                    // Add new product order event
+                    if (targetElement.id === 'orderProductBtn') {
+                        let noDataElement = document.getElementById('noData');
+                        if (noDataElement) {
+                            noDataElement.style.display = 'none'; // Hide the "No products selected" message
+                        }
 
-                        // Add new product order event
-                        if (targetElement.id === 'orderProductBtn') {
+                        let orderProductListContainer = document.getElementById('orderProductList');
+
+                        // Append new product order instead of clearing the container
+                        orderProductListContainer.innerHTML += `
+                        <div class="orderProductRow">
+                            ${productOptions}
+                            <div class="suppliersRow" id="suppliersRow_${counter}" data-counter="${counter}"></div>
+                        </div>
+                    `;
+                        counter++;
+                    }
+
+                    // Remove product order event
+                    if (targetElement.classList.contains('removeOrderBtn')) {
+                        let orderRow = targetElement.closest('div.orderProductRow');
+
+                        if (orderRow) {
+                            orderRow.remove(); // Remove the product row
+
+                            // Check if the orderProductList is now empty, and show "No products selected" if needed
                             let orderProductListContainer = document.getElementById('orderProductList');
-
-                            orderProductListContainer.innerHTML += '\
-                                <div class="orderProductRow">\
-                                    '+ productOptions +'\
-                                    <div class="suppliersRow" id="suppliersRow_'+ counter +'" data-counter="'+ counter +'"></div>\
-                                </div>\
-                            ';
-                            counter++;  
+                            if (orderProductListContainer.children.length === 0) {
+                                let noDataElement = document.getElementById('noData');
+                                if (noDataElement) {
+                                    noDataElement.style.display = 'block'; // Show the "No products selected" message again
+                                }
+                            }
                         }
+                    }
+                });
 
-                        // Remove product order event
-                        if (targetElement.classList.contains('removeOrderBtn')) { 
-                            let orderRow = targetElement
-                            .closest('div.orderProductRow');
+                document.addEventListener('change', function (e) {
+                    let targetElement = e.target;
 
-                            // Remove element
-                            orderRow.remove(); 
-                        }
-                    });
-                    
-                    document.addEventListener('change', function (e){
-                        let targetElement = e.target;
-                        let classList = targetElement.classList;
-                        
-                        if(classList.contains('productNameSelect')){
-    
-                            let pid  = targetElement.value; 
+                    if (targetElement.classList.contains('productNameSelect')) {
+                        let pid = targetElement.value;
 
-                            let counterId = targetElement
+                        let counterId = targetElement
                             .closest('div.orderProductRow')
                             .querySelector('.suppliersRow')
-                            .dataset.counter; 
-                             
-                            $.get('database/get-product-supplier.php', {id: pid}, function(suppliers){
+                            .dataset.counter;
+
+                        $.get('database/get-product-supplier.php', { id: pid }, function (suppliers) {
                                 vm.renderSupplierRows(suppliers, counterId);
-                            }, 'json')
-                            
-                        } 
-                    });
-                },
+                            },'json'
+                        );
+                    }
+                });
+            };
 
-                this.renderSupplierRows = function(suppliers, counterId){
+            this.renderSupplierRows = function (suppliers, counterId) {
+                let supplierRows = '';
 
-                    let supplierRows = '';
+                suppliers.forEach((supplier) => {
+                    supplierRows += `
+                    <div class="row">
+                        <div style="width: 50%;">
+                            <p class="supplierName">${supplier.supplier_name}</p>
+                        </div>
+                        <div style="width: 50%;">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" class="orderProductQty" placeholder="Enter quantity..."
+                                name="quantity[${counterId}][${supplier.id}]" />
+                        </div>
+                    </div>`;
+                });
 
-                    suppliers.forEach((supplier) => { 
-                        supplierRows  += '\
-                            <div class="row">\
-                                <div style="width: 50%;">\
-                                    <p class="supplierName">'+ supplier.supplier_name +'</p>\
-                                </div>\
-                                <div style="width: 50%;">\
-                                    <label for="quantity">Quantity:</label>\
-                                    <input type="number" id="quantity" class="orderProductQty" placeholder="Enter quantity..."\
-                                        name="quantity" />\
-                                </div>\
-                            </div>';   
-
-                    });
-
-                    //Append to container 
-
-                    let supplierRowsCounter = document.getElementById('suppliersRow_' + counterId);
-                    supplierRowsCounter.innerHTML = supplierRows;
-                }
-
-
+                // Append to container
+                let supplierRowsCounter = document.getElementById('suppliersRow_' + counterId);
+                supplierRowsCounter.innerHTML = supplierRows;
+            };
         }
 
         (new script()).initialize();
     </script>
+
 </body>
 
 </html>
