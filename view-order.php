@@ -37,8 +37,26 @@ $suppliers = include('database/show.php');
                             <h1 class="section_header"><i class="fa fa-list"></i> List of Purchase Orders</h1>
                             <div class="section_content">
                                 <div class="poListContainer">
+                                    <?php  
+                                        $stmt = $conn->prepare("SELECT products.product_name, order_product.quantity_ordered, users.first_name, users.last_name, order_product.batch,  suppliers.supplier_name, order_product.status, order_product.created_at FROM order_product, suppliers, products, users WHERE
+                                        order_product.supplier = suppliers.id 
+                                        AND order_product.product = products.id 
+                                        AND order_product.created_by = users.id
+                                        ORDER BY order_product.created_at DESC");
+
+                                        $stmt->execute();
+                                        $purchase_orders = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+                                        
+                                        $data = [];
+                                        foreach($purchase_orders as $purchase_order){
+                                            $data[$purchase_order['batch']][] = $purchase_order; 
+                                        } 
+                                    ?>
+                                    <?php 
+                                        foreach($data as $batch_id => $batch_pos){
+                                    ?>
                                     <div class="poList">
-                                        <p>Batch #: 1735096566</p>
+                                        <p>Batch #: <?= $batch_id ?></p>
                                         <table>
                                             <thead>
                                                 <tr>
@@ -52,108 +70,27 @@ $suppliers = include('database/show.php');
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php 
+                                                    foreach($batch_pos as $index => $batch_po){
+
+                                                ?>
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td>Product</td>
-                                                    <td>Qty Ordered</td>
-                                                    <td>Supplier</td>
-                                                    <td>Status</td>
-                                                    <td>Ordered By</td>
-                                                    <td>Created At</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Product</td>
-                                                    <td>Qty Ordered</td>
-                                                    <td>Supplier</td>
-                                                    <td>Status</td>
-                                                    <td>Ordered By</td>
-                                                    <td>Created At</td>
-                                                </tr>
+                                                    <td><?= $index + 1 ?> </td>
+                                                    <td><?= $batch_po['product_name'] ?></td>
+                                                    <td><?= $batch_po['quantity_ordered'] ?></td>
+                                                    <td><?= $batch_po['supplier_name'] ?></td>
+                                                    <td><span class="po-badge po-badge-<?= $batch_po['status'] ?>"><?= $batch_po['status'] ?></span></td>
+                                                    <td><?= $batch_po['first_name'] . ' ' . $batch_po['last_name'] ?></td>
+                                                    <td><?= $batch_po['created_at'] ?></td>
+                                                </tr> 
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                         <div class="poBtnContainer alignRight">
                                             <button class="appbtn updatepoBtn">Update</button>
                                         </div>
-                                    </div> 
-                                    <div class="poList">
-                                        <p>Batch #: 1735096566</p>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>S.N</th>
-                                                    <th>Product</th>
-                                                    <th>Qty Ordered</th>
-                                                    <th>Supplier</th>
-                                                    <th>Status</th>
-                                                    <th>Ordered By</th>
-                                                    <th>Created At</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Product</td>
-                                                    <td>Qty Ordered</td>
-                                                    <td>Supplier</td>
-                                                    <td>Status</td>
-                                                    <td>Ordered By</td>
-                                                    <td>Created At</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Product</td>
-                                                    <td>Qty Ordered</td>
-                                                    <td>Supplier</td>
-                                                    <td>Status</td>
-                                                    <td>Ordered By</td>
-                                                    <td>Created At</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="poBtnContainer alignRight">
-                                            <button class="appbtn updatepoBtn">Update</button>
-                                        </div>
-                                    </div> 
-                                    <div class="poList">
-                                        <p>Batch #: 1735096566</p>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>S.N</th>
-                                                    <th>Product</th>
-                                                    <th>Qty Ordered</th>
-                                                    <th>Supplier</th>
-                                                    <th>Status</th>
-                                                    <th>Ordered By</th>
-                                                    <th>Created At</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Product</td>
-                                                    <td>Qty Ordered</td>
-                                                    <td>Supplier</td>
-                                                    <td>Status</td>
-                                                    <td>Ordered By</td>
-                                                    <td>Created At</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Product</td>
-                                                    <td>Qty Ordered</td>
-                                                    <td>Supplier</td>
-                                                    <td>Status</td>
-                                                    <td>Ordered By</td>
-                                                    <td>Created At</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="poBtnContainer alignRight">
-                                            <button class="appbtn updatepoBtn">Update</button>
-                                        </div>
-                                    </div> 
+                                    </div>
+                                    <?php } ?>  
                                 </div> 
                             </div>
                         </div>

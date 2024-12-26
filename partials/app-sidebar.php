@@ -47,7 +47,7 @@
                     <i class="fa fa-angle-left menuIcons leftAngleIcon showHideSubMenu"></i>
                 </a>
                 <ul class="subMenus" id="user">
-                    <li><a class="subMenuLink" href="./product-order.php"><i class="fa fa-circle-o"></i> View Supplier</a></li>
+                    <li><a class="subMenuLink" href="./product-order.php"><i class="fa fa-circle-o"></i> Create Order</a></li>
                     <li><a class="subMenuLink" href="./view-order.php"><i class="fa fa-circle-o"></i> View Order</a></li> 
                 </ul>
             </li>

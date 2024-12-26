@@ -274,3 +274,15 @@ table td {
     color: #fff;
     background: #f685a1;
 }
+.po-badge{
+    padding: 4px 6px;
+    border: 1px solid ;
+}
+.po-badge-pending{
+    background-color: #ff7c76;
+    border-color: #556455;
+}
+.po-badge-complete{
+    background: #b5ebb5;
+    border-color: green;
+}
