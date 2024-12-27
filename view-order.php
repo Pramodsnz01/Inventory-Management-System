@@ -37,61 +37,72 @@ $suppliers = include('database/show.php');
                             <h1 class="section_header"><i class="fa fa-list"></i> List of Purchase Orders</h1>
                             <div class="section_content">
                                 <div class="poListContainer">
-                                    <?php  
-                                        $stmt = $conn->prepare("SELECT products.product_name, order_product.quantity_ordered, users.first_name, users.last_name, order_product.batch,  suppliers.supplier_name, order_product.status, order_product.created_at FROM order_product, suppliers, products, users WHERE
+                                    <?php
+                                    $stmt = $conn->prepare("SELECT order_product.id, products.product_name, order_product.quantity_received, order_product.quantity_ordered, users.first_name, users.last_name, order_product.batch,  suppliers.supplier_name, order_product.status, order_product.created_at FROM order_product, suppliers, products, users WHERE
                                         order_product.supplier = suppliers.id 
                                         AND order_product.product = products.id 
                                         AND order_product.created_by = users.id
                                         ORDER BY order_product.created_at DESC");
 
-                                        $stmt->execute();
-                                        $purchase_orders = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-                                        
-                                        $data = [];
-                                        foreach($purchase_orders as $purchase_order){
-                                            $data[$purchase_order['batch']][] = $purchase_order; 
-                                        } 
-                                    ?>
-                                    <?php 
-                                        foreach($data as $batch_id => $batch_pos){
-                                    ?>
-                                    <div class="poList">
-                                        <p>Batch #: <?= $batch_id ?></p>
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>S.N</th>
-                                                    <th>Product</th>
-                                                    <th>Qty Ordered</th>
-                                                    <th>Supplier</th>
-                                                    <th>Status</th>
-                                                    <th>Ordered By</th>
-                                                    <th>Created At</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php 
-                                                    foreach($batch_pos as $index => $batch_po){
+                                    $stmt->execute();
+                                    $purchase_orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                                                ?>
-                                                <tr>
-                                                    <td><?= $index + 1 ?> </td>
-                                                    <td><?= $batch_po['product_name'] ?></td>
-                                                    <td><?= $batch_po['quantity_ordered'] ?></td>
-                                                    <td><?= $batch_po['supplier_name'] ?></td>
-                                                    <td><span class="po-badge po-badge-<?= $batch_po['status'] ?>"><?= $batch_po['status'] ?></span></td>
-                                                    <td><?= $batch_po['first_name'] . ' ' . $batch_po['last_name'] ?></td>
-                                                    <td><?= $batch_po['created_at'] ?></td>
-                                                </tr> 
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                        <div class="poBtnContainer alignRight">
-                                            <button class="appbtn updatepoBtn">Update</button>
+                                    $data = [];
+                                    foreach ($purchase_orders as $purchase_order) {
+                                        $data[$purchase_order['batch']][] = $purchase_order;
+                                    }
+                                    ?>
+                                    <?php
+                                    foreach ($data as $batch_id => $batch_pos) {
+                                        ?>
+                                        <div class="poList" id="container-<?= $batch_id ?>">
+                                            <p>Batch #: <?= $batch_id ?></p>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.N</th>
+                                                        <th>Product</th>
+                                                        <th>Qty Ordered</th>
+                                                        <th>Qty Received</th>
+                                                        <th>Supplier</th>
+                                                        <th>Status</th>
+                                                        <th>Ordered By</th>
+                                                        <th>Created At</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    foreach ($batch_pos as $index => $batch_po) {
+
+                                                        ?>
+                                                        <tr>
+                                                            <td><?= $index + 1 ?> </td>
+                                                            <td class="po_product"><?= $batch_po['product_name'] ?></td>
+                                                            <td class="po_qty_ordered"><?= $batch_po['quantity_ordered'] ?></td>
+                                                            <td class="po_qty_received"><?= $batch_po['quantity_received'] ?>
+                                                            </td>
+                                                            <td class="po_qty_supplier"><?= $batch_po['supplier_name'] ?></td>
+                                                            <td class="po_qty_status"><span
+                                                                    class="po-badge  po-badge-<?= $batch_po['status'] ?>"><?= $batch_po['status'] ?></span>
+                                                            </td>
+                                                            <td><?= $batch_po['first_name'] . ' ' . $batch_po['last_name'] ?>
+                                                            </td>
+                                                            <td>
+                                                                <?= $batch_po['created_at'] ?>
+                                                                <input type="hidden" class="po_qty_row_id"
+                                                                    value="<?= $batch_po['id'] ?>">
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                            <div class="poBtnContainer alignRight">
+                                                <button class="appbtn updatepoBtn"
+                                                    data-id="<?= $batch_id ?>">Update</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <?php } ?>  
-                                </div> 
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -108,6 +119,82 @@ $suppliers = include('database/show.php');
             var vm = this;
 
             this.registerEvents = function () {
+                document.addEventListener('click', function (e) {
+                    let targetElement = e.target;
+                    let classList = targetElement.classList;
+
+                    if (classList.contains('updatepoBtn')) {
+                        e.preventDefault(); 
+
+
+                        let batchNumberContainer = 'container-' + targetElement.dataset.id;
+                        //Get all the purchase order product records 
+                        
+                        productList = document.querySelectorAll('#' + batchNumberContainer + ' .po_product');
+                        qtyOrderedList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_ordered');
+                        qtyReceivedList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_received');
+                        supplierList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_supplier');
+                        statusList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_status');
+
+                        poListArr =[] ;
+                        for(i=0; i<productList.length; i++) {
+                            poListArr.push({ 
+                                name: productList[i].innerText,
+                                qtyOrdered: qtyOrderedList[i].innerText,
+                                qtyReceived: qtyReceivedList[i].innerText,
+                                supplier: supplierList[i].innerText,
+                                status: statusList[i].innerText,
+                            });
+                        } 
+
+                        productList.forEach((product, key) => {
+                            poListArr[key]['product'] = product.innerText;
+                        })
+ 
+                         
+                        let pName = targetElement.dataset.name;
+
+                        BootstrapDialog.confirm({
+                            type: BootstrapDialog.TYPE_DANGER,
+                            title: 'Delete Product',
+                            message: 'Are you sure to delete <strong>' + pName + '</strong>?',
+                            callback: function (isDelete) {
+                                if (isDelete) {
+                                    $.ajax({
+                                        method: 'POST',
+                                        data: { id: pId, table: 'products' },
+                                        url: 'database/delete-product.php',
+                                        dataType: 'json',
+                                        success: function (data) {
+                                            BootstrapDialog.alert({
+                                                type: data.success
+                                                    ? BootstrapDialog.TYPE_SUCCESS
+                                                    : BootstrapDialog.TYPE_DANGER,
+                                                message: data.message || 'Operation completed.',
+                                                callback: function () {
+                                                    if (data.success) window.location.reload();
+                                                }
+                                            });
+                                        },
+                                        error: function () {
+                                            BootstrapDialog.alert({
+                                                type: BootstrapDialog.TYPE_DANGER,
+                                                message: 'Failed to delete the product. Please try again.'
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+
+                    if (classList.contains('updateProduct')) {
+                        e.preventDefault();
+
+                        let pId = targetElement.dataset.pid;
+                        vm.showEditDialog(pId);
+                    }
+                });
             },
 
                 this.initialize = function () {

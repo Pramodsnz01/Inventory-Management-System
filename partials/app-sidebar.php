@@ -61,8 +61,7 @@
                     <li><a class="subMenuLink" href="./users-view.php"><i class="fa fa-circle-o"></i> View User</a></li>
                     <li><a class="subMenuLink" href="./users-add.php"><i class="fa fa-circle-o"></i> Add User</a></li>
                 </ul>
-            </li>
-
+            </li> 
         </ul>
     </div>
 </div>
