@@ -126,8 +126,8 @@ $suppliers = include('database/show.php');
                     if (classList.contains('updatepoBtn')) {
                         e.preventDefault(); 
 
-
-                        let batchNumberContainer = 'container-' + targetElement.dataset.id;
+                        let batchNumber = targetElement.dataset.id;
+                        let batchNumberContainer = 'container-' + batchNumber;
                         //Get all the purchase order product records 
                         
                         productList = document.querySelectorAll('#' + batchNumberContainer + ' .po_product');
@@ -135,6 +135,7 @@ $suppliers = include('database/show.php');
                         qtyReceivedList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_received');
                         supplierList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_supplier');
                         statusList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_status');
+                        rowIds = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_row_id'); 
 
                         poListArr =[] ;
                         for(i=0; i<productList.length; i++) {
@@ -144,56 +145,110 @@ $suppliers = include('database/show.php');
                                 qtyReceived: qtyReceivedList[i].innerText,
                                 supplier: supplierList[i].innerText,
                                 status: statusList[i].innerText,
+                                id:rowIds[i].value
                             });
                         } 
 
-                        productList.forEach((product, key) => {
-                            poListArr[key]['product'] = product.innerText;
-                        })
- 
-                         
-                        let pName = targetElement.dataset.name;
+                        //Store in HTML
+                        var poListHtml = `
+                            <table id="fromTable_${batchNumber}">
+                                <thead>
+                                    <tr>
+                                        <th>S.N</th>
+                                        <th>Product Name</th>
+                                        <th>Qty Ordered</th>
+                                        <th>Qty Received</th>
+                                        <th>Supplier</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        `;
 
+                        poListArr.forEach((poList, index) => {
+                            poListHtml += `
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td class="po_product alignLeft">${poList.name}</td>
+                                    <td class="po_qty_ordered">${poList.qtyOrdered}</td>
+                                    <td class="po_qty_received">
+                                        <input type="number" value="${poList.qtyReceived}" />
+                                    </td>
+                                    <td class="po_qty_supplier alignLeft">${poList.supplier}</td>
+                                    <td>
+                                        <select class="po_qty_status">
+                                            <option value="pending" ${poList.status === 'pending' ? 'selected' : ''}>pending</option>
+                                            <option value="incomplete" ${poList.status === 'incomplete' ? 'selected' : ''}>incomplete</option>
+                                            <option value="complete" ${poList.status === 'complete' ? 'selected' : ''}>complete</option>
+                                        </select>
+                                        <input type="hidden" class="po_qty_row_id" value="${poList.id}">
+                                    </td>
+                                </tr>
+                            `;
+                        });
+
+                        poListHtml += `
+                            </tbody>
+                        </table>
+                        `;
+
+                        // Remove unintended newlines or whitespace
+                        poListHtml = poListHtml.replace(/\n|\r/g, ''); 
+
+                        // Pass the sanitized HTML to BootstrapDialog
                         BootstrapDialog.confirm({
-                            type: BootstrapDialog.TYPE_DANGER,
-                            title: 'Delete Product',
-                            message: 'Are you sure to delete <strong>' + pName + '</strong>?',
-                            callback: function (isDelete) {
-                                if (isDelete) {
+                            type: BootstrapDialog.TYPE_PRIMARY,
+                            title: 'Update Purchase Order: Batch: <strong>' + batchNumber + '</strong>',
+                            message: poListHtml,
+                            callback: function (toAdd) {
+                                console.log(toAdd);
+                                //If we add 
+                                if (toAdd) { 
+
+                                    formTableContainer = 'fromTable_'+ batchNumber;   
+ 
+                                    qtyReceivedList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_received input'); 
+                                    qtyOrderedList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_ordered '); 
+                                    statusList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_status');
+                                    rowIds = document.querySelectorAll('#' + formTableContainer + ' .po_qty_row_id'); 
+
+                                    poListArrForm =[] ;
+                                    for(i=0; i<productList.length; i++) {
+                                        poListArrForm.push({  
+                                            qtyReceived: qtyReceivedList[i].value,
+                                            qtyOrdered: qtyOrderedList[i].innerText, 
+                                            status: statusList[i].value,
+                                            id:rowIds[i].value
+                                        });
+                                    } 
+
+                                    //send request /Update database
                                     $.ajax({
                                         method: 'POST',
-                                        data: { id: pId, table: 'products' },
-                                        url: 'database/delete-product.php',
+                                        data: {
+                                            payload: poListArrForm 
+                                        } ,
+                                        url: 'database/update-order.php',
                                         dataType: 'json',
                                         success: function (data) {
+                                            message = data.message;
+
                                             BootstrapDialog.alert({
                                                 type: data.success
                                                     ? BootstrapDialog.TYPE_SUCCESS
                                                     : BootstrapDialog.TYPE_DANGER,
-                                                message: data.message || 'Operation completed.',
+                                                message: message,
                                                 callback: function () {
                                                     if (data.success) window.location.reload();
                                                 }
-                                            });
-                                        },
-                                        error: function () {
-                                            BootstrapDialog.alert({
-                                                type: BootstrapDialog.TYPE_DANGER,
-                                                message: 'Failed to delete the product. Please try again.'
                                             });
                                         }
                                     });
                                 }
                             }
                         });
-                    }
 
-                    if (classList.contains('updateProduct')) {
-                        e.preventDefault();
-
-                        let pId = targetElement.dataset.pid;
-                        vm.showEditDialog(pId);
-                    }
+                    } 
                 });
             },
 

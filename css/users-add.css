@@ -176,6 +176,9 @@ table td {
 .alignRight{
     text-align: right;
 }
+.alignLeft{
+    text-align: left;
+}
 #orderProductList{
     margin-top: 20px;
 }
@@ -285,4 +288,9 @@ table td {
 .po-badge-complete{
     background: #b5ebb5;
     border-color: green;
+}
+.po-badge-incomplete{
+    background: #f7e640;
+    color: #392b2b;
+    border-color: #a3a3a3;
 }
