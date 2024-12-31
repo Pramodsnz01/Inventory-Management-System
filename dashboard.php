@@ -13,7 +13,10 @@ $user = $_SESSION['user'];
 
 //Get graph data - purchase order by status
 include('database/po_status_pie_graph.php');
- 
+
+//Get graph data - supplier product count
+include('database/supplier_product_bar_graph.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -37,12 +40,22 @@ include('database/po_status_pie_graph.php');
             <div class="dashboard_content">
                 <div class="dashboardContent_main">
                     <!-- Dashboard content goes here -->
-                    <figure class="highcharts-figure">
-                        <div id="container"></div>
-                        <p class="highcharts-description">
-                            Here is the breakdown of purchase orders by status.
-                        </p>
-                    </figure>
+                    <div class="col50">
+                        <figure class="highcharts-figure">
+                            <div id="container"></div>
+                            <p class="highcharts-description">
+                                Here is the breakdown of purchase orders by status.
+                            </p>
+                        </figure>
+                    </div>
+                    <div class="col50">
+                        <figure class="highcharts-figure">
+                            <div id="containerBarChart"></div>
+                            <p class="highcharts-description">
+                                Here is the breakdown of products count assigned to supplier.
+                            </p>
+                        </figure>
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,7 +67,7 @@ include('database/po_status_pie_graph.php');
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <script>
-        var graphData = <?= json_encode($results) ?>; 
+        var graphData = <?= json_encode($results) ?>;
         Highcharts.chart('container', {
             chart: {
                 type: 'pie'
@@ -97,8 +110,45 @@ include('database/po_status_pie_graph.php');
                 {
                     name: 'Status',
                     colorByPoint: true,
-                    data:  graphData
+                    data: graphData
                 }
+            ]
+        });
+        
+        var bar_graphData = <?= json_encode($bar_count) ?>;
+        var bar_graphCategoties = <?= json_encode($categories) ?>; 
+
+        Highcharts.chart('containerBarChart', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Product Count Assigned To Supplier'
+            }, 
+            xAxis: {
+                categories: bar_graphCategoties,
+                crosshair: true, 
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Product Count'
+                }
+            },
+            tooltip: {
+                // valueSuffix: ' (1000 MT)'
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'Suppliers',
+                    data: bar_graphData
+                } 
             ]
         });
 

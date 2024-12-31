@@ -275,3 +275,14 @@ input[type="number"] {
     margin-top: 20px;
 }
 
+/* Barchart */
+
+.col50{
+    width: 50%;
+}
+
+.dashboardContent_main{
+    display: flex;
+    flex-direction: row;
+}
+
