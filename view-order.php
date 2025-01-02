@@ -68,6 +68,7 @@ $suppliers = include('database/show.php');
                                                         <th>Status</th>
                                                         <th>Ordered By</th>
                                                         <th>Created At</th>
+                                                        <th>Delivery History</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -93,6 +94,9 @@ $suppliers = include('database/show.php');
                                                                     value="<?= $batch_po['id'] ?>">
                                                                 <input type="hidden" class="po_qty_productid"
                                                                     value="<?= $batch_po['product'] ?>">
+                                                            </td>
+                                                            <td>
+                                                                <button class="appbtn appDeliveryHistory fa fa-history" data-id = "<?= $batch_po['id'] ?>"></button>
                                                             </td>
                                                         </tr>
                                                     <?php } ?>
@@ -260,7 +264,54 @@ $suppliers = include('database/show.php');
                             }
                         });
 
-                    } 
+                    }
+                    
+                    // If delivery history button is clicked
+                    if (classList.contains('appDeliveryHistory')) {
+                        let id = targetElement.dataset.id;
+
+                        $.get('database/view-delivery-history.php', { id: id }, function (data) {
+                            if (data.length) {
+                                let rows = '';
+                                data.forEach((row, index) => {
+                                    rows += `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${new Date(row['date_received']).toUTCString()}</td>
+                                            <td>${row['qty_received']}</td>
+                                        </tr>`;
+                                });
+
+                                let deliveryHistoryHtml = `
+                                        <table class="deliveryHistoryTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.N</th>
+                                                    <th>Date Received</th>
+                                                    <th>Quantity Received</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${rows}
+                                            </tbody>
+                                        </table>`;
+
+                                BootstrapDialog.show({
+                                    title: '<strong>Delivery Histories</strong>',
+                                    type: BootstrapDialog.TYPE_PRIMARY,
+                                    message: deliveryHistoryHtml
+                                });
+                            } else {
+                                BootstrapDialog.alert({
+                                    title: '<strong>No Delivery History</strong>',
+                                    type: BootstrapDialog.TYPE_INFO,
+                                    message: 'No delivery history found for this product.',
+                                    buttonLabel: 'OK'
+                                });
+                            }
+                        }, 'json');
+                    }
+
                 });
             },
 

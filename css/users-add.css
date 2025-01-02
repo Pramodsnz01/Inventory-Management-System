@@ -294,3 +294,14 @@ table td {
     color: #392b2b;
     border-color: #a3a3a3;
 }
+
+.appDeliveryHistory:hover{ 
+    background-color: rgb(224, 3, 213); 
+    transition: 0.3s all;
+}
+
+.deliveryHistoryTable th{
+    font-size: 15px;
+    padding: 10px 20px;
+}
+
