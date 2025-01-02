@@ -38,7 +38,7 @@ $suppliers = include('database/show.php');
                             <div class="section_content">
                                 <div class="poListContainer">
                                     <?php
-                                    $stmt = $conn->prepare("SELECT order_product.id, products.product_name, order_product.quantity_received, order_product.quantity_ordered, users.first_name, users.last_name, order_product.batch,  suppliers.supplier_name, order_product.status, order_product.created_at FROM order_product, suppliers, products, users WHERE
+                                    $stmt = $conn->prepare("SELECT order_product.id, order_product.product, products.product_name, order_product.quantity_received, order_product.quantity_ordered, users.first_name, users.last_name, order_product.batch,  suppliers.supplier_name, order_product.status, order_product.created_at FROM order_product, suppliers, products, users WHERE
                                         order_product.supplier = suppliers.id 
                                         AND order_product.product = products.id 
                                         AND order_product.created_by = users.id
@@ -91,6 +91,8 @@ $suppliers = include('database/show.php');
                                                                 <?= $batch_po['created_at'] ?>
                                                                 <input type="hidden" class="po_qty_row_id"
                                                                     value="<?= $batch_po['id'] ?>">
+                                                                <input type="hidden" class="po_qty_productid"
+                                                                    value="<?= $batch_po['product'] ?>">
                                                             </td>
                                                         </tr>
                                                     <?php } ?>
@@ -136,6 +138,7 @@ $suppliers = include('database/show.php');
                         supplierList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_supplier');
                         statusList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_status');
                         rowIds = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_row_id'); 
+                        pIds = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_productid'); 
 
                         poListArr =[] ;
                         for(i=0; i<productList.length; i++) {
@@ -145,7 +148,8 @@ $suppliers = include('database/show.php');
                                 qtyReceived: qtyReceivedList[i].innerText,
                                 supplier: supplierList[i].innerText,
                                 status: statusList[i].innerText,
-                                id:rowIds[i].value
+                                id: rowIds[i].value,
+                                pid: pIds[i].value
                             });
                         } 
 
@@ -184,6 +188,7 @@ $suppliers = include('database/show.php');
                                             <option value="complete" ${poList.status === 'complete' ? 'selected' : ''}>complete</option>
                                         </select>
                                         <input type="hidden" class="po_qty_row_id" value="${poList.id}">
+                                        <input type="hidden" class="po_qty_pid" value="${poList.pid}">
                                     </td>
                                 </tr>
                             `;
@@ -213,7 +218,9 @@ $suppliers = include('database/show.php');
                                     qtyDeliveredList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_delivered input'); 
                                     qtyOrderedList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_ordered '); 
                                     statusList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_status');
-                                    rowIds = document.querySelectorAll('#' + formTableContainer + ' .po_qty_row_id'); 
+                                    rowIds = document.querySelectorAll('#' + formTableContainer + ' .po_qty_row_id');
+                                    pids = document.querySelectorAll('#' + formTableContainer + ' .po_qty_pid');
+
 
                                     poListArrForm =[] ;
                                     for(i=0; i<qtyDeliveredList.length; i++) {
@@ -222,7 +229,8 @@ $suppliers = include('database/show.php');
                                             qtyDelivered: qtyDeliveredList[i].value,
                                             qtyOrdered: qtyOrderedList[i].innerText, 
                                             status: statusList[i].value,
-                                            id:rowIds[i].value
+                                            id:rowIds[i].value,
+                                            pid: pids[i].value  // Product ID for updating stock record
                                         });
                                     } 
 

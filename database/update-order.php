@@ -5,14 +5,15 @@ include('connection.php');
 
 try {
     foreach ($purchase_orders as $po) {
-        $delivered = (int)$po['qtyDelivered'];
+        $delivered = (int) $po['qtyDelivered'];
 
         // Skip if no delivered quantity
         if ($delivered > 0) {
-            $cur_qty_received = (int)$po['qtyReceive'];
-            $ordered = (int)$po['qtyOrdered'];
+            $cur_qty_received = (int) $po['qtyReceive'];
+            $ordered = (int) $po['qtyOrdered'];
             $status = $po['status'];
             $row_id = $po['id'];
+            $product_id = (int) $po['pid'];
 
             // Calculate updated received quantity
             $updated_qty_received = $cur_qty_received + $delivered;
@@ -22,6 +23,7 @@ try {
             $sql = "UPDATE order_product SET quantity_received = ?, status = ?, quantity_remaining = ? WHERE id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->execute([$updated_qty_received, $status, $qty_remaining, $row_id]);
+ 
 
             // Insert into the order_product_history table
             $delivery_history = [
@@ -37,6 +39,22 @@ try {
                 (:order_product_id, :qty_received, :date_received, :date_updated)";
             $stmt = $conn->prepare($sql);
             $stmt->execute($delivery_history);
+
+            // script for updating the main product quantity
+            // select stmt to pull the cur quantity from the product
+            
+            $stmt = $conn->prepare("SELECT products.stock FROM products WHERE id = $product_id"); 
+            
+            $stmt->execute();
+            $product = $stmt->fetch();
+            
+            $cur_stock = (int) $product['stock'];
+            
+            // update stmt to add the delivery product to the cur quantity
+            $updated_stock = $cur_stock + $delivered; 
+            $sql = "UPDATE products SET stock = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$updated_stock, $product_id]); 
         }
     }
     $response = [
