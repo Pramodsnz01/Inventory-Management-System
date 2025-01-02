@@ -149,7 +149,7 @@ $suppliers = include('database/show.php');
                             });
                         } 
 
-                        //Store in HTML
+                       // Store in HTML
                         var poListHtml = `
                             <table id="fromTable_${batchNumber}">
                                 <thead>
@@ -158,6 +158,7 @@ $suppliers = include('database/show.php');
                                         <th>Product Name</th>
                                         <th>Qty Ordered</th>
                                         <th>Qty Received</th>
+                                        <th>Qty Delivered</th>
                                         <th>Supplier</th>
                                         <th>Status</th>
                                     </tr>
@@ -171,8 +172,9 @@ $suppliers = include('database/show.php');
                                     <td>${index + 1}</td>
                                     <td class="po_product alignLeft">${poList.name}</td>
                                     <td class="po_qty_ordered">${poList.qtyOrdered}</td>
-                                    <td class="po_qty_received">
-                                        <input type="number" value="${poList.qtyReceived}" />
+                                    <td class="po_qty_received">${poList.qtyReceived}</td>
+                                    <td class="po_qty_delivered">
+                                        <input type="number" value="0" />
                                     </td>
                                     <td class="po_qty_supplier alignLeft">${poList.supplier}</td>
                                     <td>
@@ -188,9 +190,9 @@ $suppliers = include('database/show.php');
                         });
 
                         poListHtml += `
-                            </tbody>
-                        </table>
-                        `;
+                                </tbody>
+                            </table>
+                        `; 
 
                         // Remove unintended newlines or whitespace
                         poListHtml = poListHtml.replace(/\n|\r/g, ''); 
@@ -207,15 +209,17 @@ $suppliers = include('database/show.php');
 
                                     formTableContainer = 'fromTable_'+ batchNumber;   
  
-                                    qtyReceivedList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_received input'); 
+                                    qtyReceivedList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_received '); 
+                                    qtyDeliveredList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_delivered input'); 
                                     qtyOrderedList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_ordered '); 
                                     statusList = document.querySelectorAll('#' + formTableContainer + ' .po_qty_status');
                                     rowIds = document.querySelectorAll('#' + formTableContainer + ' .po_qty_row_id'); 
 
                                     poListArrForm =[] ;
-                                    for(i=0; i<productList.length; i++) {
-                                        poListArrForm.push({  
-                                            qtyReceived: qtyReceivedList[i].value,
+                                    for(i=0; i<qtyDeliveredList.length; i++) {
+                                        poListArrForm.push({ 
+                                            qtyReceive : qtyReceivedList[i].innerText,  
+                                            qtyDelivered: qtyDeliveredList[i].value,
                                             qtyOrdered: qtyOrderedList[i].innerText, 
                                             status: statusList[i].value,
                                             id:rowIds[i].value
