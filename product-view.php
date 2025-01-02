@@ -44,6 +44,7 @@ $products = include('database/show.php');
                                                 <th>S.N</th>
                                                 <th>Image</th>
                                                 <th>Product Name</th>
+                                                <th>Stock</th>
                                                 <th>Description</th>
                                                 <th width="10%">Suppliers</th>
                                                 <th>Created By</th>
@@ -61,6 +62,7 @@ $products = include('database/show.php');
                                                             src="uploads/products/<?= $product['img'] ?>" alt="" />
                                                     </td>
                                                     <td class="lastName"><?= $product['product_name'] ?></td>
+                                                    <td class="lastName"><?= number_format($product['stock'])  ?></td>
                                                     <td class="email"><?= $product['description'] ?></td>
                                                     <td class="email">
                                                         <?php
