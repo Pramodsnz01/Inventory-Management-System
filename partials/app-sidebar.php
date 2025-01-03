@@ -19,6 +19,10 @@
                         Dashboard</span></a>
             </li>
             <li class="liMainMenu">
+                <a href="./report.php"><i class="fa fa-file menuIcons"></i><span class="menuText">
+                        Reports</span></a>
+            </li>
+            <li class="liMainMenu">
                 <a href="javascript:void(0);" class="showHideSubMenu">
                     <i class="fa fa-tag menuIcons showHideSubMenu"></i>
                     <span class="menuText showHideSubMenu"> Product</span>

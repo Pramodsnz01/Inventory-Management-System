@@ -121,7 +121,7 @@ h3.dashboard_logo {
 .dashboardMenu_lists li.liMainMenu {
     margin-left: -45px;
     list-style: none;
-    padding-top: 15px;
+    /* padding-top: 15px; */
     text-transform: uppercase;
 }
 
@@ -131,6 +131,7 @@ h3.dashboard_logo {
     display: block;
     font-size: 15px;
     padding: 0px 15px;
+    padding-top: 15px;
     padding-bottom: 15px;
     padding-right: 0;
 }
@@ -301,4 +302,46 @@ input[type="number"] {
 }
 .line{
     border-bottom: 2px solid #f685a1;
+}
+.reportTypeContainer{
+    gap: 21px;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 31px;
+}
+.reportType{
+    border: 1px solid #c2c6c2;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    width: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+} 
+.reportType p{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;  
+}
+.reportType:hover{
+    background-color: #763a49;
+    color: white;
+    box-shadow: ;
+}
+.reportExportBtn{
+    padding: 4px 15px;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: #f685a1;
+    color: white;
+    margin-left: 13px;
+    font-size: 11px;
+    border: 1px solid transparent;
+
+}
+.reportExportBtn:hover{
+    border: 1px solid #f685a1;
+    background-color: white;
+    color: #f685a1;
 }
