@@ -325,8 +325,7 @@ input[type="number"] {
 }
 .reportType:hover{
     background-color: #763a49;
-    color: white;
-    box-shadow: ;
+    color: white; 
 }
 .reportExportBtn{
     padding: 4px 15px;
