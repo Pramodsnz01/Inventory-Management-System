@@ -17,6 +17,9 @@ include('database/po_status_pie_graph.php');
 //Get graph data - supplier product count
 include('database/supplier_product_bar_graph.php');
 
+//Get line graph data - delivery history per day
+include('database/delivery_history_graph.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -40,21 +43,30 @@ include('database/supplier_product_bar_graph.php');
             <div class="dashboard_content">
                 <div class="dashboardContent_main">
                     <!-- Dashboard content goes here -->
-                    <div class="col50">
-                        <figure class="highcharts-figure">
-                            <div id="container"></div>
+                    <div class="scroolable">
+                        <div class="line">
+                            <figure class="highcharts-figure">
+                                <div id="container"></div>
+                                <p class="highcharts-description">
+                                    Here is the breakdown of purchase orders by status.
+                                </p>
+                            </figure>
+                        </div>
+                        <div class=" line">
+                            <figure class="highcharts-figure">
+                                <div id="containerBarChart"></div>
+                                <p class="highcharts-description">
+                                    Here is the breakdown of products count assigned to supplier.
+                                </p>
+                            </figure>
+                        </div>
+                        <div class=" line"> 
+                            <div id="deliveryHistory"></div>
                             <p class="highcharts-description">
-                                Here is the breakdown of purchase orders by status.
+                                Basic line chart showing trends in a dataset. This chart includes the
+                                product delivered per day.
                             </p>
-                        </figure>
-                    </div>
-                    <div class="col50">
-                        <figure class="highcharts-figure">
-                            <div id="containerBarChart"></div>
-                            <p class="highcharts-description">
-                                Here is the breakdown of products count assigned to supplier.
-                            </p>
-                        </figure>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,7 +75,9 @@ include('database/supplier_product_bar_graph.php');
     <script src="js/script.js"></script>
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <script>
@@ -77,10 +91,6 @@ include('database/supplier_product_bar_graph.php');
             },
             tooltip: {
                 // valueSuffix: '%'
-            },
-            subtitle: {
-                text:
-                    'Source:<a href="https://www.mdpi.com/2072-6643/11/3/684/htm" target="_default">MDPI</a>'
             },
             plotOptions: {
                 series: {
@@ -114,9 +124,9 @@ include('database/supplier_product_bar_graph.php');
                 }
             ]
         });
-        
+
         var bar_graphData = <?= json_encode($bar_count) ?>;
-        var bar_graphCategoties = <?= json_encode($categories) ?>; 
+        var bar_graphCategoties = <?= json_encode($categories) ?>;
 
         Highcharts.chart('containerBarChart', {
             chart: {
@@ -124,10 +134,10 @@ include('database/supplier_product_bar_graph.php');
             },
             title: {
                 text: 'Product Count Assigned To Supplier'
-            }, 
+            },
             xAxis: {
                 categories: bar_graphCategoties,
-                crosshair: true, 
+                crosshair: true,
             },
             yAxis: {
                 min: 0,
@@ -148,9 +158,68 @@ include('database/supplier_product_bar_graph.php');
                 {
                     name: 'Suppliers',
                     data: bar_graphData
-                } 
+                }
             ]
         });
+
+        var lineCategories = <?= json_encode($line_categories) ?>;
+        var lineData = <?= json_encode($line_data) ?>;
+        Highcharts.chart('deliveryHistory', {
+
+            chart: {
+                type: 'spline',
+            },
+
+            title: {
+                text: 'Delivery History',
+                align: 'center',
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Product Delivered Per Day'
+                }
+            },
+
+            xAxis: {
+                categories: lineCategories
+            },
+
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    }
+                }
+            },
+
+            series: [{
+                name: 'Product Delivered',
+                data: lineData
+            }],
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+        });
+
 
     </script>
 </body>

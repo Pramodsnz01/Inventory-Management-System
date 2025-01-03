@@ -178,46 +178,51 @@ h3.dashboard_logo {
     padding-left: 20px;
 }
 
-.subMenus { 
+.subMenus {
     display: none;
     list-style: none;
     margin-left: -35px !important;
     background-color: #c26a80;
 }
-a.subMenuLink{
+
+a.subMenuLink {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     text-transform: none;
     font-size: 14px !important;
 }
-a.subMenuLink i{
+
+a.subMenuLink i {
     font-size: 15px !important;
     width: 23px !important;
 }
-.subMenus li a{ 
+
+.subMenus li a {
     padding-left: 30px !important;
 }
-i.leftAngleIcon{
+
+i.leftAngleIcon {
     float: right;
     font-size: 15px !important;
     margin-top: 2px;
 }
+
 .leftAngleIcon {
-    display: inline-block;  
-    transition: transform 0.4s ease;  
-    transform: rotate(0deg);  
-    transform-origin: 20% 50%;  
+    display: inline-block;
+    transition: transform 0.4s ease;
+    transform: rotate(0deg);
+    transform-origin: 20% 50%;
 }
 
 .leftAngleIcon.rotate-down {
-    transform: rotate(-90deg); 
+    transform: rotate(-90deg);
 }
 
-.subMenuActive{
+.subMenuActive {
     font-weight: bold;
     border-top: 2px solid white;
     border-bottom: 2px solid white;
-    background-color: #763a49; 
+    background-color: #763a49;
 }
 
 /* pie-chart */
@@ -269,20 +274,31 @@ input[type="number"] {
 }
 
 .highcharts-description {
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Soft aesthetic shadow */ 
-    text-align: center; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+    /* Soft aesthetic shadow */
+    text-align: center;
     margin: 0.3rem 40px;
     margin-top: 20px;
 }
 
 /* Barchart */
 
-.col50{
+/* .col50 {
     width: 50%;
-}
+    display: flex;
+    flex-direction: row;
+} */
 
 .dashboardContent_main {
     display: flex;
     flex-direction: row;
 }
 
+.scroolable {
+    width: 100%;
+    height: 75vh;
+    overflow-y: auto;
+}
+.line{
+    border-bottom: 2px solid #f685a1;
+}
