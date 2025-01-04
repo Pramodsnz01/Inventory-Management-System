@@ -34,14 +34,14 @@ if (!isset($_SESSION['user'])) {
                     <div class="reportType">
                         <p>Export Products</p>
                         <div class="alignRight">
-                            <a href="" class="reportExportBtn">Excel</a>
+                            <a href="database/report_csv.php?report=product" class="reportExportBtn">Excel</a>
                             <a href="" class="reportExportBtn">PDF</a>
                         </div>
                     </div>
                     <div class="reportType">
                         <p>Export Suppliers</p>
                         <div class="alignRight">
-                            <a href="" class="reportExportBtn">Excel</a>
+                            <a href="database/report_csv.php?report=supplier" class="reportExportBtn">Excel</a>
                             <a href="" class="reportExportBtn">PDF</a>
                         </div>
                     </div>   
@@ -50,14 +50,14 @@ if (!isset($_SESSION['user'])) {
                     <div class="reportType">
                         <p>Export Deliveries</p>
                         <div class="alignRight">
-                            <a href="" class="reportExportBtn">Excel</a>
+                            <a href="database/report_csv.php?report=" class="reportExportBtn">Excel</a>
                             <a href="" class="reportExportBtn">PDF</a>
                         </div>
                     </div>
                     <div class="reportType">
                         <p>Export Purchase Orders</p>
                         <div class="alignRight">
-                            <a href="" class="reportExportBtn">Excel</a>
+                            <a href="database/report_csv.php" class="reportExportBtn">Excel</a>
                             <a href="" class="reportExportBtn">PDF</a>
                         </div>
                     </div>   
