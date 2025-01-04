@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="login.php" method="POST">
                 <div class="loginInputContainer">
                     <label for="username">Username:</label>
-                    <input type="text" placeholder="Username" id="username" name="username" required>
+                    <input type="email" placeholder="Username" id="username" name="username" required>
                 </div>
                 <div class="loginInputContainer">
                     <label for="password">Password:</label>
