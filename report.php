@@ -35,14 +35,14 @@ if (!isset($_SESSION['user'])) {
                         <p>Export Products</p>
                         <div class="alignRight">
                             <a href="database/report_csv.php?report=product" class="reportExportBtn">Excel</a>
-                            <a href="database/report_pdf.php?report=product" class="reportExportBtn">PDF</a>
+                            <a href="database/report_pdf.php?report=product" target="_blank" class="reportExportBtn">PDF</a>
                         </div>
                     </div>
                     <div class="reportType">
                         <p>Export Suppliers</p>
                         <div class="alignRight">
                             <a href="database/report_csv.php?report=supplier" class="reportExportBtn">Excel</a>
-                            <a href="" class="reportExportBtn">PDF</a>
+                            <a href="database/report_pdf.php?report=supplier" target="_blank" class="reportExportBtn">PDF</a>
                         </div>
                     </div>   
                 </div>
@@ -51,14 +51,14 @@ if (!isset($_SESSION['user'])) {
                         <p>Export Deliveries</p>
                         <div class="alignRight">
                             <a href="database/report_csv.php?report=delivery" class="reportExportBtn">Excel</a>
-                            <a href="" class="reportExportBtn">PDF</a>
+                            <a href="database/report_pdf.php?report=delivery" target="_blank" class="reportExportBtn">PDF</a>
                         </div>
                     </div>
                     <div class="reportType">
                         <p>Export Purchase Orders</p>
                         <div class="alignRight">
                             <a href="database/report_csv.php?report=purchase_orders" class="reportExportBtn">Excel</a>
-                            <a href="" class="reportExportBtn">PDF</a>
+                            <a href="database/report_pdf.php?report=purchase_orders" target="_blank" class="reportExportBtn">PDF</a>
                         </div>
                     </div>   
                 </div>
