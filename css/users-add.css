@@ -115,6 +115,36 @@ table td {
     text-transform: uppercase;
     color: #f685a1;
 }
+.useraddFormContainer{
+    width: 100%;
+    height: 65vh;
+    overflow-y: auto;
+}
+#permissions{
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+#permissions .moduleName{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.moduleFunc{
+    text-align: center;
+    border: 1px solid #c1c1c1;
+    cursor: pointer;
+}
+.permission{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d8c0c0;
+}
+.permissionActive{
+    background-color: #f685a1;
+    color: white;
+    border: 1px solid #de2855;
+    transition: 0.3s;
+}
 
 /* For Product */
 .productTextAreaInput {

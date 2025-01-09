@@ -10,7 +10,7 @@ if (!isset($_SESSION['user'])) {
 $_SESSION['table'] = 'users';
 $_SESSION['redirect_to'] = 'users-add.php';
 
-$show_table = 'users'; 
+$show_table = 'users';
 $users = include('database/show.php');
 
 ?>
@@ -21,7 +21,7 @@ $users = include('database/show.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add User- Inventory Management System</title> 
+    <title>Add User- Inventory Management System</title>
     <?php include('partials/app-header-scripts.php'); ?>
 </head>
 
@@ -41,22 +41,25 @@ $users = include('database/show.php');
                                 <form action="database/add.php" method="POST" class="appForm">
                                     <div class="appFormInputContainer">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" id="first_name" class="appFormInput" name="first_name" />
+                                        <input type="text" id="first_name" class="appFormInput" name="first_name"
+                                            required />
                                     </div>
                                     <div class="appFormInputContainer">
                                         <label for="last_name">Last Name</label>
-                                        <input type="text" id="last_name" class="appFormInput" name="last_name" />
+                                        <input type="text" id="last_name" class="appFormInput" name="last_name"
+                                            required />
                                     </div>
                                     <div class="appFormInputContainer">
                                         <label for="email">Email</label>
-                                        <input type="text" id="email" class="appFormInput" name="email" />
+                                        <input type="text" id="email" class="appFormInput" name="email" required />
                                     </div>
                                     <div class="appFormInputContainer">
                                         <label for="password">Password</label>
-                                        <input type="password" id="password" class="appFormInput" name="password" />
-                                    </div>
-
-
+                                        <input type="password" id="password" class="appFormInput" name="password"
+                                            required />
+                                    </div> 
+                                    <input type="hidden" name="permissions">
+                                    <?php include('partials/permissions.php'); ?> 
                                     <button type="submit" class="appbtn"><i class="fa fa-plus"></i>Add User</button>
                                 </form>
                                 <?php
@@ -74,12 +77,38 @@ $users = include('database/show.php');
                                 } ?>
                             </div>
 
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <?php include('partials/app-scripts.php'); ?>
+
+    <script>
+        function loadScript() {
+
+            this.initialize = function(){
+                this.registerEvents();
+            },
+            this.registerEvents = function(){
+
+                //click
+                document.addEventListener('click', function(e){
+                    let target = e.target;
+
+                    //check if class name moduleFunc is clicked
+                    if(target.classList.contains('moduleFunc')){ 
+                        //set the active class
+                        if(target.classList.contains('permissionActive'))target.classList.remove('permissionActive');
+                        else target.classList.add('permissionActive');
+                    }
+                });
+            }
+        }
+        var script = new loadScript();
+        script.initialize();
+    </script>
 </body>
+
 </html>
