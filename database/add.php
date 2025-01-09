@@ -62,7 +62,17 @@ foreach ($columns as $column) {
 $table_properties = implode(", ", array_keys($db_arr));
 $table_placeholders = ':' . implode(", :", array_keys($db_arr));
  
-
+//Add error handler if permissions is empty
+if(isset($db_arr['permissions'])){
+    if(!$db_arr['permissions']){
+        $_SESSION['response'] = [
+            'success' => false,
+            'message' => 'No permissions is set!'
+        ];
+        header('location: ../' . $_SESSION['redirect_to']);
+        die;
+    }
+}
 
 //Adding record to the main table.
 try {

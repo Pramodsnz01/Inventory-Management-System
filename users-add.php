@@ -57,9 +57,9 @@ $users = include('database/show.php');
                                         <label for="password">Password</label>
                                         <input type="password" id="password" class="appFormInput" name="password"
                                             required />
-                                    </div> 
-                                    <input type="hidden" name="permissions">
-                                    <?php include('partials/permissions.php'); ?> 
+                                    </div>
+                                    <input type="hidden" id="permission_el" name="permissions">
+                                    <?php include('partials/permissions.php'); ?>
                                     <button type="submit" class="appbtn"><i class="fa fa-plus"></i>Add User</button>
                                 </form>
                                 <?php
@@ -87,24 +87,38 @@ $users = include('database/show.php');
 
     <script>
         function loadScript() {
+            this.permissions = [];
 
-            this.initialize = function(){
+            this.initialize = function () {
                 this.registerEvents();
             },
-            this.registerEvents = function(){
+                this.registerEvents = function () {
 
-                //click
-                document.addEventListener('click', function(e){
-                    let target = e.target;
+                    //click
+                    document.addEventListener('click', function (e) {
+                        let target = e.target;
 
-                    //check if class name moduleFunc is clicked
-                    if(target.classList.contains('moduleFunc')){ 
-                        //set the active class
-                        if(target.classList.contains('permissionActive'))target.classList.remove('permissionActive');
-                        else target.classList.add('permissionActive');
-                    }
-                });
-            }
+                        //check if class name moduleFunc is clicked
+                        if (target.classList.contains('moduleFunc')) {
+                            //get the value
+                            let permissionName = target.dataset.value;
+                            //set the active class
+                            if (target.classList.contains('permissionActive')) {
+                                target.classList.remove('permissionActive');
+
+                                //remove from the array
+                                script.permissions = script.permissions.filter((name) => {
+                                    return name !== permissionName;
+                                });
+                            } else {
+                                target.classList.add('permissionActive');
+                                script.permissions.push(permissionName);
+                            }
+                            // Update the hidden element
+                            document.getElementById('permission_el').value = script.permissions.join(',');
+                        }
+                    });
+                }
         }
         var script = new loadScript();
         script.initialize();
