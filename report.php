@@ -6,7 +6,7 @@ session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: login.php');
     exit();
-} 
+}
 
 ?>
 
@@ -29,40 +29,51 @@ if (!isset($_SESSION['user'])) {
         <div class="dashboard_content_container" id="dashboard_content_container">
             <!-- topnav -->
             <?php include('partials/app-topnav.php') ?>
-            <div id="reportsContainer">
-                <div class="reportTypeContainer">
-                    <div class="reportType">
-                        <p>Export Products</p>
-                        <div class="alignRight">
-                            <a href="database/report_csv.php?report=product" class="reportExportBtn">Excel</a>
-                            <a href="database/report_pdf.php?report=product" target="_blank" class="reportExportBtn">PDF</a>
+            <?php if (in_array('dashboard_view', $user['permissions'])) { ?>
+
+                <div id="reportsContainer">
+                    <div class="reportTypeContainer">
+                        <div class="reportType">
+                            <p>Export Products</p>
+                            <div class="alignRight">
+                                <a href="database/report_csv.php?report=product" class="reportExportBtn">Excel</a>
+                                <a href="database/report_pdf.php?report=product" target="_blank"
+                                    class="reportExportBtn">PDF</a>
+                            </div>
+                        </div>
+                        <div class="reportType">
+                            <p>Export Suppliers</p>
+                            <div class="alignRight">
+                                <a href="database/report_csv.php?report=supplier" class="reportExportBtn">Excel</a>
+                                <a href="database/report_pdf.php?report=supplier" target="_blank"
+                                    class="reportExportBtn">PDF</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="reportType">
-                        <p>Export Suppliers</p>
-                        <div class="alignRight">
-                            <a href="database/report_csv.php?report=supplier" class="reportExportBtn">Excel</a>
-                            <a href="database/report_pdf.php?report=supplier" target="_blank" class="reportExportBtn">PDF</a>
+                    <div class="reportTypeContainer">
+                        <div class="reportType">
+                            <p>Export Deliveries</p>
+                            <div class="alignRight">
+                                <a href="database/report_csv.php?report=delivery" class="reportExportBtn">Excel</a>
+                                <a href="database/report_pdf.php?report=delivery" target="_blank"
+                                    class="reportExportBtn">PDF</a>
+                            </div>
                         </div>
-                    </div>   
-                </div>
-                <div class="reportTypeContainer">
-                    <div class="reportType">
-                        <p>Export Deliveries</p>
-                        <div class="alignRight">
-                            <a href="database/report_csv.php?report=delivery" class="reportExportBtn">Excel</a>
-                            <a href="database/report_pdf.php?report=delivery" target="_blank" class="reportExportBtn">PDF</a>
+                        <div class="reportType">
+                            <p>Export Purchase Orders</p>
+                            <div class="alignRight">
+                                <a href="database/report_csv.php?report=purchase_orders" class="reportExportBtn">Excel</a>
+                                <a href="database/report_pdf.php?report=purchase_orders" target="_blank"
+                                    class="reportExportBtn">PDF</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="reportType">
-                        <p>Export Purchase Orders</p>
-                        <div class="alignRight">
-                            <a href="database/report_csv.php?report=purchase_orders" class="reportExportBtn">Excel</a>
-                            <a href="database/report_pdf.php?report=purchase_orders" target="_blank" class="reportExportBtn">PDF</a>
-                        </div>
-                    </div>   
+
                 </div>
-            </div>
+            <?php } else { ?>
+                <div id="errorMessage">You do not have permission to view this page.</p>
+                </div>
+            <?php } ?>
         </div>
     </div>
     <script src="js/script.js"></script>

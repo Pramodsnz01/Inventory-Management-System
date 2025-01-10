@@ -19,33 +19,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Use a prepared statement to prevent SQL injection
-    $query = 'SELECT * FROM users WHERE email = :email AND password = :password';
-    $stmt = $conn->prepare($query);
-    $stmt->bindParam(':email', $username);
-    $stmt->bindParam(':password', $password);
+    // $query = 'SELECT * FROM users WHERE email = :email AND password = :password';
+    // $stmt = $conn->prepare($query);
+    // $stmt->bindParam(':email', $username);
+    // $stmt->bindParam(':password', $password);
+    // $stmt->execute();
+
+    // if ($stmt->rowCount() > 0) {
+    //     // Fetch user data and store in session
+    //     $_SESSION['user'] = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    //     // Redirect to dashboard
+    //     header('Location: dashboard.php');
+    //     exit();
+    // } else {
+    //     $error_message = 'Please make sure that username and password are correct.';
+    // }
+
+    $stmt = $conn->prepare("SELECT * FROM users");
     $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-    if ($stmt->rowCount() > 0) {
-        // Fetch user data and store in session
-        $_SESSION['user'] = $stmt->fetch(PDO::FETCH_ASSOC);
+    $users = $stmt->fetchAll();
 
-        // Redirect to dashboard
-        header('Location: dashboard.php');
-        exit();
-    } else {
-        $error_message = 'Please make sure that username and password are correct.';
+    $user_exists = false;
+
+    foreach ($users as $user) {
+        $upass = $user['password'];
+
+        if (password_verify($password, $upass)) {
+            $user_exists = true;
+            $user['permissions'] = explode(',', $user['permissions']);
+            $_SESSION['user'] = $user;
+            break;
+        }
     }
+
+    if ($user_exists) header('Location: dashboard.php');  
+    else $error_message = 'Please make sure that username and password are correct.'; 
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMS Login- Inventory Management System</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
+
 <body id="loginBody">
     <?php if (!empty($error_message)) { ?>
         <div id="errorMessage">
@@ -74,4 +98,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </body>
+
 </html>

@@ -33,53 +33,61 @@ $users = include('database/show.php');
             <!-- topnav -->
             <?php include('partials/app-topnav.php') ?>
             <div class="dashboard_content">
-                <div class="dashboardContent_main">
-                    <div class="row">
-                        <div class="column column-12">
-                            <h1 class="section_header"><i class="fa fa-plus"></i> Create User</h1>
-                            <div class="useraddFormContainer">
-                                <form action="database/add.php" method="POST" class="appForm">
-                                    <div class="appFormInputContainer">
-                                        <label for="first_name">First Name</label>
-                                        <input type="text" id="first_name" class="appFormInput" name="first_name"
-                                            required />
-                                    </div>
-                                    <div class="appFormInputContainer">
-                                        <label for="last_name">Last Name</label>
-                                        <input type="text" id="last_name" class="appFormInput" name="last_name"
-                                            required />
-                                    </div>
-                                    <div class="appFormInputContainer">
-                                        <label for="email">Email</label>
-                                        <input type="text" id="email" class="appFormInput" name="email" required />
-                                    </div>
-                                    <div class="appFormInputContainer">
-                                        <label for="password">Password</label>
-                                        <input type="password" id="password" class="appFormInput" name="password"
-                                            required />
-                                    </div>
-                                    <input type="hidden" id="permission_el" name="permissions">
-                                    <?php include('partials/permissions.php'); ?>
-                                    <button type="submit" class="appbtn"><i class="fa fa-plus"></i>Add User</button>
-                                </form>
-                                <?php
-                                if (isset($_SESSION['response'])) {
-                                    $response_message = $_SESSION['response']['message'];
-                                    $is_success = $_SESSION['response']['success'];
-                                    ?>
-                                    <div class="responseMessage">
-                                        <p
-                                            class="responseMessage <?= $is_success ? 'responseMessage__success' : 'responseMessage__error' ?> ">
-                                            <?= $response_message ?>
-                                        </p>
-                                    </div>
-                                    <?php unset($_SESSION['response']);
-                                } ?>
-                            </div>
+                <?php if (in_array('user_create', $user['permissions'])) { ?>
 
+                    <div class="dashboardContent_main">
+                        <div class="row">
+                            <div class="column column-12">
+                                <h1 class="section_header"><i class="fa fa-plus"></i> Create User</h1>
+                                <div class="useraddFormContainer">
+                                    <form action="database/add.php" method="POST" class="appForm">
+                                        <div class="appFormInputContainer">
+                                            <label for="first_name">First Name</label>
+                                            <input type="text" id="first_name" class="appFormInput" name="first_name"
+                                                required />
+                                        </div>
+                                        <div class="appFormInputContainer">
+                                            <label for="last_name">Last Name</label>
+                                            <input type="text" id="last_name" class="appFormInput" name="last_name"
+                                                required />
+                                        </div>
+                                        <div class="appFormInputContainer">
+                                            <label for="email">Email</label>
+                                            <input type="text" id="email" class="appFormInput" name="email" required />
+                                        </div>
+                                        <div class="appFormInputContainer">
+                                            <label for="password">Password</label>
+                                            <input type="password" id="password" class="appFormInput" name="password"
+                                                required />
+                                        </div>
+
+                                        <input type="hidden" id="permission_el" name="permissions">
+
+                                        <?php include('partials/permissions.php'); ?>
+                                        <button type="submit" class="appbtn"><i class="fa fa-plus"></i>Add User</button>
+                                    </form>
+                                    <?php
+                                    if (isset($_SESSION['response'])) {
+                                        $response_message = $_SESSION['response']['message'];
+                                        $is_success = $_SESSION['response']['success'];
+                                        ?>
+                                        <div class="responseMessage">
+                                            <p
+                                                class="responseMessage <?= $is_success ? 'responseMessage__success' : 'responseMessage__error' ?> ">
+                                                <?= $response_message ?>
+                                            </p>
+                                        </div>
+                                        <?php unset($_SESSION['response']);
+                                    } ?>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php } else { ?>
+                    <div id="errorMessage">You do not have permission to view this page.</p>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>

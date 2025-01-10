@@ -31,44 +31,50 @@ $products = json_encode($products);
             <!-- topnav -->
             <?php include('partials/app-topnav.php') ?>
             <div class="dashboard_content">
-                <div class="dashboardContent_main">
-                    <div class="row">
-                        <div class="column column-12">
-                            <h1 class="section_header"><i class="fa fa-plus"></i> Order Product</h1>
-                            <div>
-                                <form action="database/save-order.php" method="POST">
-                                    <div class="alignRight">
-                                        <button type="button" class="orderBtn orderProductBtn" id="orderProductBtn">Add
-                                            More
-                                            Product</button>
-                                    </div>
-                                    <div class="quantityContainer">
-                                        <div id="orderProductList">
-                                            <p id="noData" style="color: #9f9f9f">No products selected.</p>
+                <?php if (in_array('po_create', $user['permissions'])) { ?>
+
+                    <div class="dashboardContent_main">
+                        <div class="row">
+                            <div class="column column-12">
+                                <h1 class="section_header"><i class="fa fa-plus"></i> Order Product</h1>
+                                <div>
+                                    <form action="database/save-order.php" method="POST">
+                                        <div class="alignRight">
+                                            <button type="button" class="orderBtn orderProductBtn" id="orderProductBtn">Add
+                                                More
+                                                Product</button>
                                         </div>
-                                        <div class="alignRight marginTop">
-                                            <button type="submit" class="orderBtn submitOrderProductBtn ">Submit
-                                                Order</button>
+                                        <div class="quantityContainer">
+                                            <div id="orderProductList">
+                                                <p id="noData" style="color: #9f9f9f">No products selected.</p>
+                                            </div>
+                                            <div class="alignRight marginTop">
+                                                <button type="submit" class="orderBtn submitOrderProductBtn ">Submit
+                                                    Order</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <?php
-                            if (isset($_SESSION['response'])) {
-                                $response_message = $_SESSION['response']['message'];
-                                $is_success = $_SESSION['response']['success'];
-                                ?>
-                                <div class="responseMessage">
-                                    <p
-                                        class="responseMessage <?= $is_success ? 'responseMessage__success' : 'responseMessage__error' ?> ">
-                                        <?= $response_message ?>
-                                    </p>
+                                    </form>
                                 </div>
-                                <?php unset($_SESSION['response']);
-                            } ?>
+                                <?php
+                                if (isset($_SESSION['response'])) {
+                                    $response_message = $_SESSION['response']['message'];
+                                    $is_success = $_SESSION['response']['success'];
+                                    ?>
+                                    <div class="responseMessage">
+                                        <p
+                                            class="responseMessage <?= $is_success ? 'responseMessage__success' : 'responseMessage__error' ?> ">
+                                            <?= $response_message ?>
+                                        </p>
+                                    </div>
+                                    <?php unset($_SESSION['response']);
+                                } ?>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php } else { ?>
+                    <div id="errorMessage">You do not have permission to view this page.</p>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -158,8 +164,8 @@ $products = json_encode($products);
                             .dataset.counter;
 
                         $.get('database/get-product-supplier.php', { id: pid }, function (suppliers) {
-                                vm.renderSupplierRows(suppliers, counterId);
-                            },'json'
+                            vm.renderSupplierRows(suppliers, counterId);
+                        }, 'json'
                         );
                     }
                 });

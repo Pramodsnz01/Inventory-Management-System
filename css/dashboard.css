@@ -344,3 +344,10 @@ input[type="number"] {
     background-color: white;
     color: #f685a1;
 }
+#errorMessage{
+    background-color: #fff;
+    text-align: center;
+    color: red;
+    font-size: 20px;
+    padding: 11px;
+}

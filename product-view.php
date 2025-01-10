@@ -31,92 +31,98 @@ $products = include('database/show.php');
             <!-- topnav -->
             <?php include('partials/app-topnav.php') ?>
             <div class="dashboard_content">
-                <div class="dashboardContent_main">
-                    <div class="row">
-                        <div class="column column-12">
-                            <h1 class="section_header"><i class="fa fa-list"></i> List Of Products</h1>
-                            <div class="section_content">
-                                <div class="users">
+                <?php if (in_array('product_view', $user['permissions'])) { ?>
 
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>S.N</th>
-                                                <th>Image</th>
-                                                <th>Product Name</th>
-                                                <th>Stock</th>
-                                                <th>Description</th>
-                                                <th width="10%">Suppliers</th>
-                                                <th>Created By</th>
-                                                <th>Created At</th>
-                                                <th>Updated At</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($products as $index => $product) { ?>
+                    <div class="dashboardContent_main">
+                        <div class="row">
+                            <div class="column column-12">
+                                <h1 class="section_header"><i class="fa fa-list"></i> List Of Products</h1>
+                                <div class="section_content">
+                                    <div class="users">
+
+                                        <table>
+                                            <thead>
                                                 <tr>
-                                                    <td><?= $index + 1 ?></td>
-                                                    <td class="img">
-                                                        <img class="productImages"
-                                                            src="uploads/products/<?= $product['img'] ?>" alt="" />
-                                                    </td>
-                                                    <td class="lastName"><?= $product['product_name'] ?></td>
-                                                    <td class="lastName"><?= number_format($product['stock'])  ?></td>
-                                                    <td class="email"><?= $product['description'] ?></td>
-                                                    <td class="email">
-                                                        <?php
-                                                        $supplier_list = '-';
-
-                                                        $pId = $product['id'];
-                                                        $stmt = $conn->prepare("SELECT supplier_name FROM suppliers, productsuppliers WHERE productsuppliers.product = $pId AND productsuppliers.supplier = suppliers.id");
-
-                                                        $stmt->execute();
-                                                        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                                                        if ($row) {
-                                                            $supplier_arr = array_column($row, 'supplier_name');
-                                                            $supplier_list = '<li>' . implode("</li><li>", $supplier_arr);
-
-                                                        }
-                                                        echo $supplier_list;
-
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        $uId = $product['created_by'];
-                                                        $stmt = $conn->prepare("SELECT * FROM users WHERE id= $uId");
-
-                                                        $stmt->execute();
-                                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                                                        $created_by_name = $row['first_name'] . ' ' . $row['last_name'];
-                                                        echo $created_by_name;
-                                                        ?>
-                                                    </td>
-                                                    <td><?= date('M d,Y @ h:i:s: A', strtotime($product['created_at'])) ?>
-                                                    </td>
-                                                    <td><?= date('M d,Y @ h:i:s: A', strtotime($product['updated_at'])) ?>
-                                                    </td>
-                                                    <td>
-                                                        <a href="" class="updateProduct" data-pid="<?= $product['id'] ?>"><i
-                                                                class="fa fa-pencil"></i> Edit</a>
-                                                        <a href="" class="deleteProduct"
-                                                            data-name="<?= $product['product_name'] ?>"
-                                                            data-pid="<?= $product['id'] ?>"><i class="fa fa-trash"></i>
-                                                            Delete</a>
-                                                    </td>
+                                                    <th>S.N</th>
+                                                    <th>Image</th>
+                                                    <th>Product Name</th>
+                                                    <th>Stock</th>
+                                                    <th>Description</th>
+                                                    <th width="10%">Suppliers</th>
+                                                    <th>Created By</th>
+                                                    <th>Created At</th>
+                                                    <th>Updated At</th>
+                                                    <th>Action</th>
                                                 </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($products as $index => $product) { ?>
+                                                    <tr>
+                                                        <td><?= $index + 1 ?></td>
+                                                        <td class="img">
+                                                            <img class="productImages"
+                                                                src="uploads/products/<?= $product['img'] ?>" alt="" />
+                                                        </td>
+                                                        <td class="lastName"><?= $product['product_name'] ?></td>
+                                                        <td class="lastName"><?= number_format($product['stock']) ?></td>
+                                                        <td class="email"><?= $product['description'] ?></td>
+                                                        <td class="email">
+                                                            <?php
+                                                            $supplier_list = '-';
+
+                                                            $pId = $product['id'];
+                                                            $stmt = $conn->prepare("SELECT supplier_name FROM suppliers, productsuppliers WHERE productsuppliers.product = $pId AND productsuppliers.supplier = suppliers.id");
+
+                                                            $stmt->execute();
+                                                            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                                            if ($row) {
+                                                                $supplier_arr = array_column($row, 'supplier_name');
+                                                                $supplier_list = '<li>' . implode("</li><li>", $supplier_arr);
+
+                                                            }
+                                                            echo $supplier_list;
+
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
+                                                            $uId = $product['created_by'];
+                                                            $stmt = $conn->prepare("SELECT * FROM users WHERE id= $uId");
+
+                                                            $stmt->execute();
+                                                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                                            $created_by_name = $row['first_name'] . ' ' . $row['last_name'];
+                                                            echo $created_by_name;
+                                                            ?>
+                                                        </td>
+                                                        <td><?= date('M d,Y @ h:i:s: A', strtotime($product['created_at'])) ?>
+                                                        </td>
+                                                        <td><?= date('M d,Y @ h:i:s: A', strtotime($product['updated_at'])) ?>
+                                                        </td>
+                                                        <td>
+                                                            <a href="" class="<?=in_array('product_edit', $user['permissions']) ? 'updateProduct' : 'accessDeniedEr' ?>" data-pid="<?= $product['id'] ?>"><i
+                                                                    class="fa fa-pencil"></i> Edit</a>
+                                                            <a href="" class="<?=in_array('product_delete', $user['permissions']) ? 'deleteProduct' : 'accessDeniedEr' ?>"
+                                                                data-name="<?= $product['product_name'] ?>"
+                                                                data-pid="<?= $product['id'] ?>"><i class="fa fa-trash"></i>
+                                                                Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <p class="userCount"><?= count($products) ?> Products</p>
                                 </div>
-                                <p class="userCount"><?= count($products) ?> Products</p>
                             </div>
                         </div>
                     </div>
-                </div>
+                <?php } else { ?>
+                    <div id="errorMessage">You do not have permission to view this page.</p>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -137,7 +143,7 @@ $products = include('database/show.php');
 
     <script>
 
-        var suppliersList = <?= json_encode($suppliers_arr, JSON_HEX_TAG); ?>; 
+        var suppliersList = <?= json_encode($suppliers_arr, JSON_HEX_TAG); ?>;
 
         function script() {
             var vm = this;
@@ -187,6 +193,14 @@ $products = include('database/show.php');
                         });
                     }
 
+                    if(classList.contains('accessDeniedEr')){
+                        e.preventDefault();
+                        BootstrapDialog.alert({
+                            type: BootstrapDialog.TYPE_DANGER,
+                            message: 'ACCESS DENIED!.'
+                        });
+                    }
+
                     if (classList.contains('updateProduct')) {
                         e.preventDefault();
 
@@ -226,9 +240,9 @@ $products = include('database/show.php');
                 $.get('database/get-product.php', { id: id }, function (productDetails) {
                     let curSuppliers = productDetails['suppliers'];
                     let supplierOption = '';
-                    for (const [supId, supName] of Object.entries(suppliersList)){
+                    for (const [supId, supName] of Object.entries(suppliersList)) {
                         selected = curSuppliers.indexOf(supId) > -1 ? 'selected' : '';
-                        supplierOption += "<option "+ selected +" value='"+ supId +"'>"+ supName +"</option>";
+                        supplierOption += "<option " + selected + " value='" + supId + "'>" + supName + "</option>";
                     }
 
                     BootstrapDialog.confirm({
