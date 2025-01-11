@@ -97,16 +97,25 @@ $suppliers = include('database/show.php');
                                                         <td><?= date('M d,Y @ h:i:s: A', strtotime($supplier['updated_at'])) ?>
                                                         </td>
                                                         <td>
+                                                            <?php
+                                                            // Check permissions for edit and delete
+                                                            $canEdit = in_array('supplier_edit', $user['permissions']);
+                                                            $canDelete = in_array('supplier_delete', $user['permissions']);
+                                                            ?>
                                                             <a href=""
-                                                                class="in_array('supplier_edit', $user['permissions']) ? 'updateSupplier' : 'accessDeniedEr' ?>"
-                                                                data-sid="<?= $supplier['id'] ?>"><i class="fa fa-pencil"></i>
-                                                                Edit</a>
+                                                                class="<?= $canEdit ? 'updateSupplier' : 'accessDeniedEr' ?>"
+                                                                data-sid="<?= $supplier['id'] ?>">
+                                                                <i class="fa fa-pencil"></i> Edit
+                                                            </a>
+
                                                             <a href=""
-                                                                class="in_array('supplier_delete', $user['permissions']) ? 'deleteSupplier' : 'accessDeniedEr' ?>"
+                                                                class="<?= $canDelete ? 'deleteSupplier' : 'accessDeniedEr' ?>"
                                                                 data-name="<?= $supplier['supplier_name'] ?>"
-                                                                data-sid="<?= $supplier['id'] ?>"><i class="fa fa-trash"></i>
-                                                                Delete</a>
+                                                                data-sid="<?= $supplier['id'] ?>">
+                                                                <i class="fa fa-trash"></i> Delete
+                                                            </a>
                                                         </td>
+
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
