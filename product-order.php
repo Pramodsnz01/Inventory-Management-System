@@ -29,6 +29,7 @@ $products = json_encode($products);
         <?php include('partials/app-sidebar.php') ?>
         <div class="dashboard_content_container" id="dashboard_content_container">
             <!-- topnav -->
+            <?php include('live-search.php') ?>
             <?php include('partials/app-topnav.php') ?>
             <div class="dashboard_content">
                 <?php if (in_array('po_create', $user['permissions'])) { ?>

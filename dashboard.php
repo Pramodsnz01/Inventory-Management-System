@@ -39,6 +39,7 @@ include('database/delivery_history_graph.php');
         <?php include('partials/app-sidebar.php') ?>
         <div class="dashboard_content_container" id="dashboard_content_container">
             <!-- topnav -->
+            <?php include('live-search.php') ?>
             <?php include('partials/app-topnav.php') ?>
             <?php if(in_array('dashboard_view', $user['permissions'])) { ?>
             <div class="dashboard_content">

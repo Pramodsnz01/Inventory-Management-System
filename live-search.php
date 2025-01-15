@@ -10,9 +10,13 @@
 </head>
 
 <body>
-    <input type="text" id="searchInput" placeholder="Find me here...">
-    <div id="searchResult"></div>
-
+    <div class="search-box" >
+        <input class="search-txt" id="searchInput" type="text" name="" placeholder="Type to search...">
+        <a class="search-btn" href="#">
+            <i class="fas fa-search"></i>
+        </a>
+        <div id="searchResult"></div> <!-- Ensure this is inside the search-box -->
+    </div> 
     <script src="js/jquery/jquery-3.7.1.js"></script>
     <script>
         var typingTimer;

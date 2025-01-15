@@ -80,16 +80,17 @@ select {
     background-color: #f4f6f9;
 }
 
-h3.dashboard_logo {
+/* h3.dashboard_logo {
     color: #f685a1;
     font-size: 60px;
     text-align: center;
-}
+} */
 
 .dashboardSidebar_user {
     text-align: center;
     position: relative;
-    padding-bottom: 20px;
+    margin-top: 10px;
+    padding : 20px;
     border-bottom: 1px solid white;
 }
 
@@ -154,7 +155,7 @@ h3.dashboard_logo {
 
 .dashboard_topNav {
     background-color: #fff;
-    padding: 15px;
+    padding: 35px; 
 }
 
 .dashboard_topNav a {
@@ -163,8 +164,9 @@ h3.dashboard_logo {
     text-decoration: none;
 }
 
-#logout_btn {
+#logout_btn { 
     float: right;
+    margin-top: -13px;
 }
 
 .dashboard_content {
@@ -350,4 +352,105 @@ input[type="number"] {
     color: red;
     font-size: 20px;
     padding: 11px;
+}
+
+/* Styling the Search Input Box */
+/* #searchInput {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 20px;
+    border: 2px solid #f685a1;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} */
+
+/* #searchInput:focus {
+    border-color: #f05a81;
+    box-shadow: 0 4px 10px rgba(240, 90, 129, 0.4);
+} */
+
+
+ 
+  .search-box{
+    position: absolute; 
+    top: 2%;
+    left: 24%;
+    transition: (-50%,-50%);
+    border: 1px solid #763a49;
+    /* color: black;
+    background-color: #2f3640; */
+    height: 50px;
+    border-radius: 40px;
+    padding: 4px
+  }
+  .search-box:hover > .search-txt{
+    width: 240px;
+    padding: 0 6px; 
+    color: black;
+  }
+  .search-box:hover > .search-btn{
+    background: white
+  }
+  .search-btn{
+    color: #c26a80;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* background-color: #2f3640; */
+    border: 1px solid #763a49;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s
+  }
+  .search-txt{
+    border:none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+  }
+/* Styling the Search Results Container */
+#searchResult {
+    position: absolute; /* Position the dropdown relative to the parent */
+    top: 100%; /* Place it directly below the search input */
+    left: 0;
+    z-index: 10; /* Ensure it appears above other elements */
+    width: 100%; /* Match the width of the search box */
+    margin-top: 5px; /* Add some spacing below the input */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #333;
+    display: none; /* Initially hidden */
+}
+
+/* When results are visible */
+#searchResult.active {
+    display: block;
+}
+
+/* Styling individual search results (optional) */
+#searchResult div {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchResult div:hover {
+    background-color: #f9f9f9;
 }

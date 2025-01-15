@@ -4,35 +4,43 @@ $data = $_POST;
 $id = (int) $data['id'];
 $table = $data['table'];
 
+// Whitelist valid tables to prevent SQL injection
+$allowedTables = ['users', 'suppliers', 'products', 'productsuppliers'];
+
+if (!in_array($table, $allowedTables)) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid table specified.'
+    ]);
+    exit();
+}
 
 try {
     include('connection.php');
 
-    //Delete junction table
+    // Delete from junction table if applicable
     if ($table === 'suppliers') {
-        $supplier_id = $id;
-        $command = "DELETE FROM productsuppliers WHERE supplier = {$id}";
-        $conn->exec($command); // Executes the SQL query.
+        $command = $conn->prepare("DELETE FROM productsuppliers WHERE supplier = :id");
+        $command->execute([':id' => $id]);
     }
     if ($table === 'products') {
-        $supplier_id = $id;
-        $command = "DELETE FROM productsuppliers WHERE products = {$id}";
-        $conn->exec($command); // Executes the SQL query.
+        $command = $conn->prepare("DELETE FROM productsuppliers WHERE products = :id");
+        $command->execute([':id' => $id]);
     }
 
-
-    //Delete main table.
-    $command = "DELETE FROM $table WHERE id = {$id}";
-    $conn->exec($command); // Executes the SQL query.
+    // Delete from the main table
+    $command = $conn->prepare("DELETE FROM $table WHERE id = :id");
+    $command->execute([':id' => $id]);
 
     echo json_encode([
         'success' => true,
+        'message' => 'Record deleted successfully.'
     ]);
 
 } catch (PDOException $e) {
     echo json_encode([
         'success' => false,
+        'message' => 'Error deleting record' . $e->getMessage()
     ]);
 }
-
 ?>

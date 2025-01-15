@@ -6,7 +6,7 @@
 
 
 <div class="dashboard_sidebar" id="dashboard_sidebar">
-    <h3 class="dashboard_logo" id="dashboard_logo">IMS</h3>
+    <!-- <h3 class="dashboard_logo" id="dashboard_logo">IMS</h3> -->
     <div class="dashboardSidebar_user">
         <img src="profile.png" alt="User image." id="userImage">
         <span><?= htmlspecialchars($user['first_name'] . ' ' . $user['last_name']) ?></span>

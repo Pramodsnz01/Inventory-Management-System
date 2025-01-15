@@ -12,10 +12,11 @@
 <body>
     <div class="header">
         <div class="homepageContainer"> 
-            <a href="login.php">Login</a>
+            <a class="loginBtn" href="login.php">Login</a>
         </div>
     </div>
     <div class="banner">
+    <div class="overlay"></div>
         <div class="homepageContainer">
             <div class="bannerHeader">
                 <h1>IMS</h1>
@@ -59,16 +60,13 @@
                 <div class="emailForm">
                     <h3>Get Notified Any Updates!</h3>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing. Rerum a culpa labore quae placeat eligendi explicabo rem, tempora possimus voluptatem? Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur eaque quasi rerum officiis, modi laudantium.</p>
-                    <form action="">
+                    <!-- <form action="">
                         <div class="formContainer">
                             <input type="text" placeholder="Email Address">
                             <button>Notify</button>
                         </div>
-                    </form>
-                </div>
-                <div class="video">
-                    <iframe src="https://youtu.be/o60rqA4CZDA?si=LI86fVTP16lqx93t" frameborder="0"></iframe>
-                </div>
+                    </form> -->
+                </div> 
             </div>
         </div>
     </div>

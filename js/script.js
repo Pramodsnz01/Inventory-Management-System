@@ -1,33 +1,33 @@
-var sidebarOpen = true;
-document.getElementById('toggle_btn').addEventListener('click', (event) => {
-    event.preventDefault();
-    const sidebar = document.getElementById('dashboard_sidebar');
-    const contentContainer = document.getElementById('dashboard_content_container');
-    const logo = document.getElementById('dashboard_logo');
-    const userImage = document.getElementById('userImage');
-    const menuText = document.getElementsByClassName('menuText');
+// var sidebarOpen = true;
+// document.getElementById('toggle_btn').addEventListener('click', (event) => {
+//     event.preventDefault();
+//     const sidebar = document.getElementById('dashboard_sidebar');
+//     const contentContainer = document.getElementById('dashboard_content_container');
+//     const logo = document.getElementById('dashboard_logo');
+//     const userImage = document.getElementById('userImage');
+//     const menuText = document.getElementsByClassName('menuText');
 
-    if (sidebarOpen) {
-        sidebar.style.width = '10%';
-        sidebar.style.transition = '0.3s all';
-        contentContainer.style.width = '90%';
-        logo.style.fontSize = '50px';
-        userImage.style.width = '60px';
-        for (let i = 0; i < menuText.length; i++) {
-            menuText[i].style.display = 'none';
-        }
-        sidebarOpen = false;
-    } else {
-        sidebar.style.width = '25%';
-        contentContainer.style.width = '80%';
-        logo.style.fontSize = '60px';
-        userImage.style.width = '80px';
-        for (let i = 0; i < menuText.length; i++) {
-            menuText[i].style.display = 'inline-block';
-        }
-        sidebarOpen = true;
-    }
-});
+//     if (sidebarOpen) {
+//         sidebar.style.width = '10%';
+//         sidebar.style.transition = '0.3s all';
+//         contentContainer.style.width = '90%';
+//         // logo.style.fontSize = '50px';
+//         userImage.style.width = '60px';
+//         for (let i = 0; i < menuText.length; i++) {
+//             menuText[i].style.display = 'none';
+//         }
+//         sidebarOpen = false;
+//     } else {
+//         sidebar.style.width = '25%';
+//         contentContainer.style.width = '80%';
+//         // logo.style.fontSize = '60px';
+//         userImage.style.width = '80px';
+//         for (let i = 0; i < menuText.length; i++) {
+//             menuText[i].style.display = 'inline-block';
+//         }
+//         sidebarOpen = true;
+//     }
+// });
 
 
 // sub menu show/hide fn
