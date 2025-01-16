@@ -70,16 +70,16 @@ $user_permission = $user['permissions'];
                                                         <td><?= date('M d,Y @ h:i:s: A', strtotime($user['updated_at'])) ?>
                                                         </td>
                                                         <td>
-    <a href="" class="<?= in_array('user_edit', $user_permission) ? 'updateUser' : 'accessDeniedEr' ?>" data-userid="<?= $user['id'] ?>">
-        <i class="fa fa-pencil"></i> Edit
-    </a>
-    <a href="" class="<?= in_array('user_delete', $user_permission) ? 'deleteUser' : 'accessDeniedEr' ?>" 
-       data-userid="<?= $user['id'] ?>" 
-       data-fname="<?= $user['first_name'] ?>" 
-       data-lname="<?= $user['last_name'] ?>">
-        <i class="fa fa-trash"></i> Delete
-    </a>
-</td>
+                                                            <a href="" class="<?= in_array('user_edit', $user_permission) ? 'updateUser' : 'accessDeniedEr' ?>" data-userid="<?= $user['id'] ?>">
+                                                                <i class="fa fa-pencil"></i> Edit
+                                                            </a>
+                                                            <a href="" class="<?= in_array('user_delete', $user_permission) ? 'deleteUser' : 'accessDeniedEr' ?>" 
+                                                            data-userid="<?= $user['id'] ?>" 
+                                                            data-fname="<?= $user['first_name'] ?>" 
+                                                            data-lname="<?= $user['last_name'] ?>">
+                                                                <i class="fa fa-trash"></i> Delete
+                                                            </a>
+                                                        </td>
 
                                                     </tr>
                                                 <?php } ?>

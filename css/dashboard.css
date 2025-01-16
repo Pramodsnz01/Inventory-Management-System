@@ -90,7 +90,7 @@ select {
     text-align: center;
     position: relative;
     margin-top: 10px;
-    padding : 20px;
+    padding: 20px;
     border-bottom: 1px solid white;
 }
 
@@ -155,7 +155,7 @@ select {
 
 .dashboard_topNav {
     background-color: #fff;
-    padding: 35px; 
+    padding: 35px;
 }
 
 .dashboard_topNav a {
@@ -164,7 +164,7 @@ select {
     text-decoration: none;
 }
 
-#logout_btn { 
+#logout_btn {
     float: right;
     margin-top: -13px;
 }
@@ -302,16 +302,19 @@ input[type="number"] {
     height: 75vh;
     overflow-y: auto;
 }
-.line{
+
+.line {
     border-bottom: 2px solid #f685a1;
 }
-.reportTypeContainer{
+
+.reportTypeContainer {
     gap: 21px;
     display: flex;
     justify-content: flex-start;
     padding: 10px 31px;
 }
-.reportType{
+
+.reportType {
     border: 1px solid #c2c6c2;
     padding: 10px 24px;
     border-radius: 4px;
@@ -319,17 +322,20 @@ input[type="number"] {
     background-color: #fff;
     width: 100%;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
-} 
-.reportType p{
+}
+
+.reportType p {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;  
+    margin-bottom: 10px;
 }
-.reportType:hover{
+
+.reportType:hover {
     background-color: #763a49;
-    color: white; 
+    color: white;
 }
-.reportExportBtn{
+
+.reportExportBtn {
     padding: 4px 15px;
     display: inline-block;
     text-decoration: none;
@@ -341,12 +347,14 @@ input[type="number"] {
     border: 1px solid transparent;
 
 }
-.reportExportBtn:hover{
+
+.reportExportBtn:hover {
     border: 1px solid #f685a1;
     background-color: white;
     color: #f685a1;
 }
-#errorMessage{
+
+#errorMessage {
     background-color: #fff;
     text-align: center;
     color: red;
@@ -355,61 +363,43 @@ input[type="number"] {
 }
 
 /* Styling the Search Input Box */
-/* #searchInput {
-    width: 100%;
-    max-width: 400px;
-    padding: 12px 20px;
-    border: 2px solid #f685a1;
-    border-radius: 25px;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-} */
 
-/* #searchInput:focus {
-    border-color: #f05a81;
-    box-shadow: 0 4px 10px rgba(240, 90, 129, 0.4);
-} */
-
-
- 
-  .search-box{
-    position: absolute; 
+.search-box {
+    position: absolute;
     top: 2%;
     left: 24%;
-    transition: (-50%,-50%);
     border: 1px solid #763a49;
-    /* color: black;
-    background-color: #2f3640; */
+    background-color: #323232;
     height: 50px;
     border-radius: 40px;
-    padding: 4px
-  }
-  .search-box:hover > .search-txt{
+    padding: 4px; 
+}
+
+.search-box:hover>.search-txt {
     width: 240px;
-    padding: 0 6px; 
-    color: black;
-  }
-  .search-box:hover > .search-btn{
+    padding: 0 6px;
+    color: rgb(255, 255, 255);
+}
+
+.search-box:hover>.search-btn {
     background: white
-  }
-  .search-btn{
+}
+
+.search-btn {
     color: #c26a80;
     float: right;
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    /* background-color: #2f3640; */
     border: 1px solid #763a49;
-    
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.4s
-  }
-  .search-txt{
-    border:none;
+    transition: 0.4s;
+}
+
+.search-txt {
+    border: none;
     background: none;
     outline: none;
     float: left;
@@ -419,15 +409,16 @@ input[type="number"] {
     transition: 0.4s;
     line-height: 40px;
     width: 0px;
-  }
+}
+
 /* Styling the Search Results Container */
 #searchResult {
-    position: absolute; /* Position the dropdown relative to the parent */
-    top: 100%; /* Place it directly below the search input */
+    position: absolute;    /* Position the dropdown relative to the parent */
+    top: 100%;    /* Place it directly below the search input */
     left: 0;
-    z-index: 10; /* Ensure it appears above other elements */
-    width: 100%; /* Match the width of the search box */
-    margin-top: 5px; /* Add some spacing below the input */
+    z-index: 10;    /* Ensure it appears above other elements */
+    width: 100%;    /* Match the width of the search box */
+    margin-top: 5px;    /* Add some spacing below the input */
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -435,7 +426,7 @@ input[type="number"] {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-size: 14px;
     color: #333;
-    display: none; /* Initially hidden */
+    display: none;/* Initially hidden */
 }
 
 /* When results are visible */
