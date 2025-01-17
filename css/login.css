@@ -1,82 +1,189 @@
-*{
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+ 
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
 }
 
-body#loginBody{
-    background: url('../images/login-bg.jpg') no-repeat center center fixed ;
-    background-size: cover;
-    font-family: arial ;
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 10px;
 }
-.loginHeader{
+
+body#loginBody { 
+    display: block;
+    position: relative; /* Changed to 'relative' for better compatibility */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgb(163 25 61), rgb(2 2 0 / 70%)), url(../images/login-bg.jpg) no-repeat center center fixed;
+    background-size: cover; 
+    background-position: center;  
+}
+
+div.container{
+    margin-top: 7%;
     text-align: center;
-    margin-bottom: 60px;
 }
-.loginHeader h1{
-    font-size: 90px;
-    color: #f685a2; 
-    
-}
-.loginHeader p{
-    color: #ffdae3;
-    font-size: 50px; 
+.loginHeader {
+    text-align: center;
+    margin-bottom: 50px;
+} 
+
+.loginHeader p { 
+    color: hwb(0 100% 0%);
+    font-size: 40px;
     text-transform: uppercase;
     display: inline-block;
 }
-.loginHeader p:after{
+
+.loginHeader p:after {
     content: '';
     display: block;
-    height: 5px;
-    background: #f685a2;
-    margin: 0 auto; 
-} 
-.loginBody form{
+    border-radius: 100%;
+    height: 4px; 
+    background: #ffffff;
     margin: 0 auto;
-    width: 380px;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 50px;
-    border: 2px solid #fff;
-    border-radius: 8px;
-}
-.loginInputContainer{
-    margin-top: 30px;
-}
-.loginInputContainer label{
+}   
+.loginHeader p:before {
+    content: '';
     display: block;
-    text-transform: uppercase;
+    border-radius: 100%;
+    height: 4px; 
+    background: #ffffff;
+    margin: 0 auto;
+}   
+.wrapper {
+    width: 400px;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: inline-block;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.input-field {
+    position: relative;
+    border-bottom: 2px solid #ccc;
+    margin: 15px 0;
+}
+
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.15s ease;
+}
+
+.input-field input {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #fff;
+}
+
+.input-field input:focus~label,
+.input-field input:valid~label {
+    font-size: 0.8rem;
+    top: 10px;
+    transform: translateY(-120%);
+}
+ 
+.forget label {
+    display: flex;
+    align-items: center;
+}
+
+.forget label p {
+    margin-left: 8px;
+}
+
+.wrapper a {
+    color: #efefef;
+    text-decoration: none;
+}
+
+.wrapper a:hover {
+    text-decoration: underline;
+}
+
+button {
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    color: #fff;
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+} 
+
+#errorMessage {
+    background-color: #ffcccc; /* Light red background for error indication */
+    text-align: center;
+    color: #e00000; /* Dark red for text */
+    font-size: 18px; /* Slightly smaller font for readability */
+    padding: 10px 20px; /* Add some horizontal padding */
+    border: 1px solid #d80000; /* Add a border to make it more noticeable */
+    border-radius: 8px; /* Rounded corners */
+    position: fixed; /* Fixed position to avoid content shift */
+    top: 20px; /* Position from the top of the viewport */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    max-width: 600px; /* Limit width for better appearance */
+    z-index: 5;  
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Add a shadow for a polished look */
+}
+
+/* Close button styling */
+#errorMessage .close-btn {
+    position: absolute;
+    top: -17px;
+    right: -17px;
+    background: transparent;
+    border: none;
     font-size: 20px;
     font-weight: bold;
-    color: #fff;
+    color: #dd0000;
+    cursor: pointer;
+    outline: none; 
 }
-.loginInputContainer input{
-    height: 30px;
-    width: 100%;
-    border: 2px solid #d40339;
-    font-size: 20px;
-    padding: 5px;
-    text-align: center; 
+
+#errorMessage .close-btn:hover {   
+    transform: scale(1.2); /* Slight zoom-in effect on hover */
+    color: #e70000;
 }
-.loginInputContainer input::placeholder {  
-    font-style: italic;  
-} 
-.loginButtonContainer{
-    margin-top: 40px;
-    text-align: center;
-}
-.loginButtonContainer button{
-    font-size: 20px;
-    padding: 10px 40px;
-    background: #f685a2;
-    border: none;
-    color: #fff;
-}
-.loginButtonContainer button:hover{
-     border: 2px solid tomato; 
-}
-#errorMessage{
-    background-color: #fff;
-    text-align: center;
-    color: red;
-    font-size: 20px;
-    padding: 11px;
-}
+

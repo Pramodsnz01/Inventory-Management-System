@@ -55,8 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if ($user_exists) header('Location: dashboard.php');  
-    else $error_message = 'Please make sure that username and password are correct.'; 
+    if ($user_exists)
+        header('Location: dashboard.php');
+    else
+        $error_message = 'Please make sure that username and password are correct.';
 }
 ?>
 
@@ -73,30 +75,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body id="loginBody">
     <?php if (!empty($error_message)) { ?>
         <div id="errorMessage">
-            <strong>Error:</strong> <?= $error_message ?>
+            <span>Error: Please make sure that username and password are correct.</span>
+            <button class="close-btn" onclick="closeErrorMessage()">×</button>
         </div>
     <?php } ?>
     <div class="container">
         <div class="loginHeader">
-            <h1>IMS</h1>
             <p>Inventory Management System</p>
         </div>
-        <div class="loginBody">
+        <div class="wrapper">
             <form action="login.php" method="POST">
-                <div class="loginInputContainer">
-                    <label for="username">Username:</label>
-                    <input type="email" placeholder="Username" id="username" name="username" required>
+                <h2>Login</h2>
+                <div class="input-field loginInputContainer">
+                    <input type="email" id="username" name="username" required>
+                    <label for="username">Enter your email</label>
                 </div>
-                <div class="loginInputContainer">
-                    <label for="password">Password:</label>
-                    <input type="password" placeholder="Password" id="password" name="password" required>
+                <div class="input-field loginInputContainer">
+                    <input type="password" id="password" name="password" required>
+                    <label for="password">Enter your password</label>
                 </div>
-                <div class="loginButtonContainer">
-                    <button type="submit">Login</button>
-                </div>
+                <button type="submit">Log In</button>
             </form>
         </div>
     </div>
+    <script>
+        function closeErrorMessage() {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.style.display = 'none'; // Hide the error message
+        }
+    </script>
 </body>
 
 </html>
