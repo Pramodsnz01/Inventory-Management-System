@@ -7,6 +7,11 @@ try {
     foreach ($purchase_orders as $po) {
         $delivered = (int) $po['qtyDelivered'];
 
+        // Validate delivered quantity to ensure it's non-negative
+        if ($delivered < 0) {
+            throw new Exception("Invalid quantity delivered: $delivered. It cannot be negative.");
+        }
+
         // Skip if no delivered quantity
         if ($delivered > 0) {
             $cur_qty_received = (int) $po['qtyReceive'];
@@ -23,7 +28,6 @@ try {
             $sql = "UPDATE order_product SET quantity_received = ?, status = ?, quantity_remaining = ? WHERE id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->execute([$updated_qty_received, $status, $qty_remaining, $row_id]);
- 
 
             // Insert into the order_product_history table
             $delivery_history = [
@@ -40,21 +44,17 @@ try {
             $stmt = $conn->prepare($sql);
             $stmt->execute($delivery_history);
 
-            // script for updating the main product quantity
-            // select stmt to pull the cur quantity from the product
-            
-            $stmt = $conn->prepare("SELECT products.stock FROM products WHERE id = $product_id"); 
-            
-            $stmt->execute();
+            // Update the stock in the products table
+            $stmt = $conn->prepare("SELECT stock FROM products WHERE id = ?");
+            $stmt->execute([$product_id]);
             $product = $stmt->fetch();
-            
+
             $cur_stock = (int) $product['stock'];
-            
-            // update stmt to add the delivery product to the cur quantity
-            $updated_stock = $cur_stock + $delivered; 
+            $updated_stock = $cur_stock + $delivered;
+
             $sql = "UPDATE products SET stock = ? WHERE id = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->execute([$updated_stock, $product_id]); 
+            $stmt->execute([$updated_stock, $product_id]);
         }
     }
     $response = [
@@ -69,3 +69,4 @@ try {
 }
 
 echo json_encode($response);
+?>

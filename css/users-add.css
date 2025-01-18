@@ -63,6 +63,7 @@ p.responseMessage__error {
 
 .column {
     width: 100%;
+    height: 77vh;
     padding: 0px 10px;
 }
 
@@ -231,7 +232,7 @@ table td {
 }
 .quantityContainer{
     width: 100%;
-    height: 65vh;
+    height: 58vh;
     overflow-y: auto;
 }
 .orderProductQty{
