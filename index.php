@@ -1,99 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Management</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <img src="images/logo.png" alt="Logo" />
+        <span>Inventory Manager</span>
+      </div>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="about.php">About</a>
+        <a href="login.php" class="get-started">Get Started</a>
+      </nav>
+    </header>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage Login- Inventory Management System</title>
-    <link rel="stylesheet" href="css/homepage.css">
-    <script src="https://kit.fontawesome.com/4d31e6f82d.js" crossorigin="anonymous"></script>
-</head>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Effortless Inventory Management</h1>
+        <p>
+          Take control of your business with our cutting-edge tools and
+          streamlined solutions for managing your inventory.
+        </p>
+        <a href="#features" class="btn-primary">Explore Features</a>
+      </div>
+      <div class="hero-image">
+        <img src="images/main_center.png" alt="Hero Illustration" />
+      </div>
+    </section>
 
-<body>
-    <div class="header">
-        <div class="homepageContainer"> 
-            <a class="loginBtn" href="login.php">Login</a>
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <h2>Why Choose Us</h2>
+      <div class="feature-cards">
+        <div class="feature-card">
+          <img src="images/demoshow.png" alt="Feature 1" />
+          <h3>Real-Time Tracking</h3>
+          <p>
+            Monitor your inventory in real-time and make informed decisions for
+            your business.
+          </p>
         </div>
-    </div>
-    <div class="banner">
-    <div class="overlay"></div>
-        <div class="homepageContainer">
-            <div class="bannerHeader">
-                <h1>IMS</h1>
-                <p>Inventory Management System</p>
-            </div>
-            <p class="bannerTagline">Track your goods throughout the entire supply chain, from purchasing to production
-                to end sales</p>
-            <div class="bannerIcons">
-                <a href=""><i class="fa fa-apple"></i></a>
-                <a href=""><i class="fa fa-android"></i></a>
-                <a href=""><i class="fa fa-windows"></i></a>
-            </div>
+        <div class="feature-card">
+          <img src="images/clound_based.png" alt="Feature 2" />
+          <h3>Cloud-Based System</h3>
+          <p>
+            Access your inventory data anytime, anywhere with our secure cloud
+            system.
+          </p>
         </div>
+        <div class="feature-card">
+          <img src="images/customizable.png" alt="Feature 3" />
+          <h3>Customizable Solutions</h3>
+          <p>
+            Tailor your inventory management tools to fit the unique needs of
+            your business.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    </div>
-    <div class="homepageContainer">
-        <div class="homepageFeatures">
-            <div class="homepageFeature">
-                <span class="featureIcon"><i class="fa fa-gear"></i></span>
-                <h3 class="featureTitle">Editable Themes</h3>
-                <p class="featureDescription">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae
-                    optio quod necessitatibus!</p>
-            </div>
-            <div class="homepageFeature">
-                <span class="featureIcon"><i class="fa fa-star"></i></span>
-                <h3 class="featureTitle">Flat Design</h3>
-                <p class="featureDescription">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae
-                    optio quod necessitatibus!</p>
-            </div>
-            <div class="homepageFeature">
-                <span class="featureIcon"><i class="fa fa-globe"></i></span>
-                <h3 class="featureTitle">Reach Your Audience</h3>
-                <p class="featureDescription">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae
-                    optio quod necessitatibus!</p>
-            </div>
-        </div>
-    </div>
-    <div class="homepageNotified">
-        <div class="homepageContainer">
-            <div class="homepageNotifiedContainer">
-                <div class="emailForm">
-                    <h3>Get Notified Any Updates!</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing. Rerum a culpa labore quae placeat eligendi explicabo rem, tempora possimus voluptatem? Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur eaque quasi rerum officiis, modi laudantium.</p>
-                    <!-- <form action="">
-                        <div class="formContainer">
-                            <input type="text" placeholder="Email Address">
-                            <button>Notify</button>
-                        </div>
-                    </form> -->
-                </div> 
-            </div>
-        </div>
-    </div>
-    <div class="socials">
-        <div class="homepageContainer">
-            <h3 class="socialHeader">Say Hi & Get In Touch</h3>
-            <p class="socialText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, eligendi?</p>
-            <div class="socialIconContainer">
-                <a href=""><i class="fa fa-twitter"></i></a>
-                <a href=""><i class="fa fa-facebook"></i></a>
-                <a href=""><i class="fa fa-pinterest"></i></a>
-                <a href=""><i class="fa fa-google-plus"></i></a>
-                <a href=""><i class="fa fa-linkedin"></i></a>
-                <a href=""><i class="fa fa-youtube"></i></a>
-            </div>
-        </div>
-    </div>
-    <div class="footer">
-        <div class="homepageContainer">
-            <a href="">Contact</a>
-            <a href="">Download</a>
-            <a href="">Press</a>
-            <a href="">Email</a>
-            <a href="">Support</a>
-            <a href="">Privacy Policy</a> 
-        </div>
-    </div>
-</body>
-
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <p>© 2025 Inventory Manager. All rights reserved.</p>
+        <nav>
+          <a href="#features">Features</a>
+          <a href="#about">About</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
 </html>

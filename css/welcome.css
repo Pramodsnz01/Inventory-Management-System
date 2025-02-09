@@ -1,0 +1,110 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  background: linear-gradient(to bottom right, #f5f5f5, #e6e6ff);
+  color: #333;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: transparent; /* Removed the background and shadow */
+}
+
+header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+header nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 1rem;
+  color: #333;
+}
+
+header nav .get-started {
+  background: #6c63ff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+header nav .get-started:hover {
+  background: #584bd8;
+}
+
+/* Main Section */
+.main-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 40px;
+}
+
+.content {
+  max-width: 50%;
+}
+
+.content h1 {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.content a {
+  display: inline-block;
+  background: #6c63ff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.content a:hover {
+  background: #584bd8;
+}
+
+/* Illustration Section */
+.illustration {
+  position: relative;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.illustration img {
+  max-width: 100%;
+  height: auto;
+  z-index: 2;
+}
+
+/* Overlay Circle */
+.overlay-circle {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(108, 99, 255, 0.1);
+  border-radius: 50%;
+  z-index: 1;
+  top: -50px;
+  left: -50px;
+}
