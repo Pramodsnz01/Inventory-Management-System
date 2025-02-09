@@ -1,8 +1,13 @@
+
 /* General Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* Enables smooth scrolling */
 }
 
 body {
@@ -18,8 +23,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
-  background: linear-gradient(to right, #4c63b6, #6672f1);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to right, #b64c6d, #7e003a);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -61,7 +66,7 @@ header nav a:hover {
 
 header nav .get-started {
   background: #ffffff;
-  color: #4c63b6;
+  color: #763a49;
   padding: 10px 20px;
   border-radius: 20px;
   text-decoration: none;
@@ -74,7 +79,7 @@ header nav .get-started {
 
 header nav .get-started:hover {
   background: #f4f4f9;
-  color: #3d51a5;
+  color: #763a49;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   transform: scale(1.1);
 }
@@ -85,7 +90,7 @@ header nav .get-started:hover {
   justify-content: space-between;
   align-items: center;
   padding: 60px 80px;
-  background: linear-gradient(to right, #6672f1, #8899ff);
+  background: linear-gradient(to right, #763a49, #763a49);
   color: #fff;
 }
 
@@ -108,21 +113,24 @@ header nav .get-started:hover {
   display: inline-block;
   text-decoration: none;
   background: #ffffff;
-  color: #6672f1;
+  color: #763a49;
   padding: 10px 30px;
   border-radius: 20px;
   font-size: 1rem;
+  border: 1px solid transparent;
   font-weight: bold;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 .hero-content .btn-primary:hover {
-  background: #6672f1;
+  border: 1px solid #fff;
+  background: #763a49;
   color: #fff;
 }
 
 .hero-image img {
-  max-width: 100%;
+  max-width: 85%;
+  margin-left: 70px;
   border-radius: 10px;
 }
 
@@ -169,7 +177,7 @@ header nav .get-started:hover {
 .feature-card h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #4c63b6;
+  color: #7e003a;
 }
 
 .feature-card p {
@@ -177,23 +185,54 @@ header nav .get-started:hover {
   color: #666;
 }
 
+/* About Section */
+.about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 80px;
+  background: linear-gradient(to right, #763a49, #763a49);
+  color: #fff;
+}
+
+.about-content {
+  max-width: 50%;
+}
+
+.about-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #fff;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.about-content p {
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.about-image img {
+  max-width: 90%; 
+  margin-left: 50px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.about-image img:hover {
+  transform: scale(1.05);
+} 
+
 /* Footer */
 footer {
-  background: #4c63b6;
+  background: #b64c6d;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
   color: #fff;
   text-align: center;
   padding: 20px 50px;
   font-size: 0.9rem;
-}
-
-footer nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #e6e8f4;
-  font-size: 0.9rem;
-  transition: text-decoration 0.3s ease;
-}
-
-footer nav a:hover {
-  text-decoration: underline;
 }

@@ -165,9 +165,12 @@ select {
 }
 
 #logout_btn {
+    
     float: right;
     margin-top: -13px;
+    border: 1px solid transparent;
 }
+
 
 .dashboard_content {
     padding: 40px 10px 10px 10px;
