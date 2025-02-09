@@ -165,12 +165,16 @@ select {
 }
 
 #logout_btn {
-    
+    height: 33px;
+    padding: 2px 10px;
     float: right;
     margin-top: -13px;
     border: 1px solid transparent;
 }
-
+#logout_btn:hover { 
+    border-radius: 10px;
+    border: 1px solid green;
+}
 
 .dashboard_content {
     padding: 40px 10px 10px 10px;
