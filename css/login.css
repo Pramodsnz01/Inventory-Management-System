@@ -20,8 +20,8 @@ body#loginBody {
   position: relative; /* Changed to 'relative' for better compatibility */
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgb(163 25 61), rgb(2 2 0 / 70%)),
-    url(../images/login-bg.jpg) no-repeat center center fixed;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgb(2 2 0 / 70%)),
+    url(../images/worker.jpg) no-repeat center center fixed;
   background-size: cover;
   background-position: center;
 }
@@ -35,39 +35,42 @@ div.container {
 }
 
 .loginHeader p {
-  color: hwb(0 100% 0%);
+  color:#b64c6d;
   font-size: 40px;
   text-transform: uppercase;
   display: inline-block;
 }
 
-.loginHeader p:after {
+/* .loginHeader p:after {
   content: "";
   display: block;
   border-radius: 100%;
   height: 4px;
   background: #ffffff;
   margin: 0 auto;
-}
-.loginHeader p:before {
+} */
+/* .loginHeader p:before {
   content: "";
   display: block;
   border-radius: 100%;
   height: 4px;
   background: #ffffff;
   margin: 0 auto;
-}
+} */
 .wrapper {
   width: 400px;
   border-radius: 8px;
   padding: 30px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(182, 76, 109, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: inline-block;
 }
 
+.wrapper:hover{
+  box-shadow: #b64c6d 0px 0px 5px;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -76,12 +79,12 @@ form {
 h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  color: #fff;
+  color: #b6b6b6;
 }
 
 .input-field {
   position: relative;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #b6b6b6;
   margin: 15px 0;
 }
 
@@ -90,7 +93,7 @@ h2 {
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  color: #fff;
+  color: #b6b6b6;
   font-size: 16px;
   pointer-events: none;
   transition: 0.15s ease;
@@ -103,7 +106,7 @@ h2 {
   border: none;
   outline: none;
   font-size: 16px;
-  color: #fff;
+  color: #b6b6b6;
 }
 
 .input-field input:focus ~ label,
@@ -123,7 +126,7 @@ h2 {
 }
 
 .wrapper a {
-  color: #efefef;
+  color: #b6b6b6;
   text-decoration: none;
 }
 
@@ -132,7 +135,7 @@ h2 {
 }
 
 button {
-  background: #fff;
+  background: #b6b6b6;
   color: #000;
   font-weight: 600;
   border: none;
@@ -145,8 +148,8 @@ button {
 }
 
 button:hover {
-  color: #fff;
-  border-color: #fff;
+  color: #b6b6b6;
+  border-color: #b64c6d;
   background: rgba(255, 255, 255, 0.15);
 }
 
