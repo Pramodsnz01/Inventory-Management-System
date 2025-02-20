@@ -41,20 +41,25 @@ $users = include('database/show.php');
                             <div class="column column-12">
                                 <h1 class="section_header"><i class="fa fa-plus"></i> Create User</h1>
                                 <div class="useraddFormContainer">
-                                    <form action="database/add.php" method="POST" class="appForm">
+                                    <form action="database/add.php" method="POST" class="appForm"
+                                        onsubmit="return validateForm()">
+
                                         <div class="appFormInputContainer">
                                             <label for="first_name">First Name</label>
                                             <input type="text" id="first_name" class="appFormInput" name="first_name"
                                                 required />
+                                            <span id="first_name_error" class="error-message"></span>
                                         </div>
                                         <div class="appFormInputContainer">
                                             <label for="last_name">Last Name</label>
                                             <input type="text" id="last_name" class="appFormInput" name="last_name"
                                                 required />
+                                            <span id="last_name_error" class="error-message"></span>
                                         </div>
                                         <div class="appFormInputContainer">
                                             <label for="email">Email</label>
                                             <input type="text" id="email" class="appFormInput" name="email" required />
+                                            <span id="email_error" class="error-message"></span>
                                         </div>
                                         <div class="appFormInputContainer">
                                             <label for="password">Password</label>
@@ -95,6 +100,45 @@ $users = include('database/show.php');
     <?php include('partials/app-scripts.php'); ?>
 
     <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Get form inputs
+            let firstName = document.getElementById("first_name").value.trim();
+            let lastName = document.getElementById("last_name").value.trim();
+            let email = document.getElementById("email").value.trim();
+
+            // Validation patterns
+            let namePattern = /^[A-Za-z]{2,}$/;
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Reset error messages
+            document.getElementById("first_name_error").innerText = "";
+            document.getElementById("last_name_error").innerText = "";
+            document.getElementById("email_error").innerText = "";
+
+            // Validate First Name
+            if (!namePattern.test(firstName)) {
+                document.getElementById("first_name_error").innerText = "First name must contain only letters and be at least 2 characters long.";
+                isValid = false;
+            }
+
+            // Validate Last Name
+            if (!namePattern.test(lastName)) {
+                document.getElementById("last_name_error").innerText = "Last name must contain only letters and be at least 2 characters long.";
+                isValid = false;
+            }
+
+            // Validate Email
+            if (!emailPattern.test(email)) {
+                document.getElementById("email_error").innerText = "Please enter a valid email address.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Permissions
         function loadScript() {
             this.permissions = [];
 
