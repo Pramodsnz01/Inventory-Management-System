@@ -62,7 +62,7 @@ $users = include('database/show.php');
                                                 class="appFormInput" name="email"></input>
                                         </div>
                                         <button type="submit" class="appbtn"><i class="fa fa-plus"></i> Create
-                                            Product</button>
+                                            Supplier</button>
                                     </form>
                                     <?php
                                     if (isset($_SESSION['response'])) {
