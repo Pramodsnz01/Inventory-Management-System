@@ -27,28 +27,26 @@ A web-based Inventory Management System built using **PHP**, **MySQL**, **HTML**
 
 ## 📁 File Structure
 
+```plaintext
 /inventory-management-system/
-│
-├── index.php # Dashboard homepage
-├── login.php # Login page
-├── users-add.php # Create new user form
-├── database/ # All DB operations (add, delete, update, show)
-│ ├── add.php
-│ ├── delete.php
-│ └── show.php
-├── partials/ # Reusable components
-│ ├── app-header-scripts.php
-│ ├── app-scripts.php
-│ ├── app-sidebar.php
-│ ├── app-topnav.php
-│ └── permissions.php
-├── assets/ # CSS, JS, images
-├── README.md # Project documentation
+├── index.php                  # Dashboard homepage
+├── login.php                  # Login page
+├── users-add.php              # Create new user form
+├── database/                  # All DB operations (add, delete, update, show)
+│   ├── add.php
+│   ├── delete.php
+│   └── show.php
+├── partials/                  # Reusable components
+│   ├── app-header-scripts.php
+│   ├── app-scripts.php
+│   ├── app-sidebar.php
+│   ├── app-topnav.php
+│   └── permissions.php
+├── assets/                    # CSS, JS, images
+├── README.md                  # Project documentation
 └── ...
+```
 
-yaml
-Copy
-Edit
 
 ---
 
